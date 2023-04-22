@@ -2,6 +2,22 @@
 
 ## 서버개발 내용 정리
 
+### 라즈베리 파이에서 NodeJS 설치
+
+```
+$ sudo apt-get update
+```
+
+```
+$ sudo apt-get install nodejs
+$ node -v
+```
+
+```
+$ sudo apt-get install npm
+$ npm -v
+```
+
 ### node-dht-sensor를 라즈베리파이에서 설치하여 ASAIR AM2302(DHT22)를 제어
 
 ```

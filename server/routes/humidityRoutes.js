@@ -6,4 +6,4 @@ const humidityController = require('../controllers/humidityController')
 router.get('/', humidityController.getHumidity)
 
 // 희망 습도 값에 따라 색을 표시
-router.post('/humidity/color', humidityController.postHumidityColor);
+router.post('/color', humidityController.postHumidityColor);
