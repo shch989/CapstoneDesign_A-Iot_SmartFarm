@@ -17,7 +17,6 @@ const InputField = styled.input`
   border: 1px solid #ccc;
   font-size: 16px;
   transition: border-color 0.2s ease-in-out;
-
   &:focus {
     outline: none;
     border-color: #4caf50;
