@@ -7,12 +7,20 @@ const HomePage = () => {
   const [maxHumidity, setMaxHumidity] = useState(80)
   const [minHumidity, setMinHumidity] = useState(40)
   const [temperature, setTemperature] = useState(0)
-  const [humidity, setHumidity] = useState(0)
   const [temperatureColor, setTemperatureColor] = useState('')
+  const [humidity, setHumidity] = useState(0)
   const [humidityColor, setHumidityColor] = useState('')
 
+  const socket = io('http://localhost:5000')
+
   useEffect(() => {
-    const socket = io('http://localhost:5000')
+    socket.on('connect', () => {
+      console.log('connected to server')
+    })
+
+    socket.on('disconnect', () => {
+      console.log('disconnected from server')
+    })
 
     socket.on('temperature', (data) => {
       setTemperature(data.value)
@@ -27,23 +35,7 @@ const HomePage = () => {
     return () => {
       socket.disconnect()
     }
-  }, [])
-
-  const handleMaxTemperatureChange = (event) => {
-    setMaxTemperature(event.target.value)
-  }
-
-  const handleMinTemperatureChange = (event) => {
-    setMinTemperature(event.target.value)
-  }
-
-  const handleMaxHumidityChange = (event) => {
-    setMaxHumidity(event.target.value)
-  }
-
-  const handleMinHumidityChange = (event) => {
-    setMinHumidity(event.target.value)
-  }
+  }, [socket])
 
   return (
     <div>
@@ -53,7 +45,7 @@ const HomePage = () => {
           type="number"
           id="max-temperature-input"
           value={maxTemperature}
-          onChange={handleMaxTemperatureChange}
+          onChange={(event) => setMaxTemperature(event.target.value)}
         />
       </div>
       <div>
@@ -62,7 +54,7 @@ const HomePage = () => {
           type="number"
           id="min-temperature-input"
           value={minTemperature}
-          onChange={handleMinTemperatureChange}
+          onChange={(event) => setMinTemperature(event.target.value)}
         />
       </div>
       <div>
@@ -71,7 +63,7 @@ const HomePage = () => {
           type="number"
           id="max-humidity-input"
           value={maxHumidity}
-          onChange={handleMaxHumidityChange}
+          onChange={(event) => setMaxHumidity(event.target.value)}
         />
       </div>
       <div>
@@ -80,16 +72,28 @@ const HomePage = () => {
           type="number"
           id="min-humidity-input"
           value={minHumidity}
-          onChange={handleMinHumidityChange}
+          onChange={(event) => setMinHumidity(event.target.value)}
         />
       </div>
       <div>
         <p>Current Temperature: {temperature} &#8451;</p>
-        <div style={{ backgroundColor: temperatureColor }}></div>
+        <div
+          style={{
+            backgroundColor: temperatureColor,
+            width: '50px',
+            height: '50px',
+          }}
+        ></div>
       </div>
       <div>
         <p>Current Humidity: {humidity} %</p>
-        <div style={{ backgroundColor: humidityColor }}></div>
+        <div
+          style={{
+            backgroundColor: humidityColor,
+            width: '50px',
+            height: '50px',
+          }}
+        ></div>
       </div>
     </div>
   )
