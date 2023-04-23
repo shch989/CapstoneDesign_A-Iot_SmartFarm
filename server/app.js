@@ -5,6 +5,13 @@ const io = require('socket.io')(server)
 const sensor = require('node-dht-sensor')
 const cors = require('cors');
 
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
+
 // CORS 설정
 app.use(cors());
 

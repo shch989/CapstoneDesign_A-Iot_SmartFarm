@@ -37,6 +37,30 @@ const HomePage = () => {
     }
   }, [socket])
 
+  const handleMaxTemperatureChange = (event) => {
+    const value = event.target.value
+    setMaxTemperature(value)
+    socket.emit('maxTemperature', value)
+  }
+
+  const handleMinTemperatureChange = (event) => {
+    const value = event.target.value
+    setMinTemperature(value)
+    socket.emit('minTemperature', value)
+  }
+
+  const handleMaxHumidityChange = (event) => {
+    const value = event.target.value
+    setMaxHumidity(value)
+    socket.emit('maxHumidity', value)
+  }
+
+  const handleMinHumidityChange = (event) => {
+    const value = event.target.value
+    setMinHumidity(value)
+    socket.emit('minHumidity', value)
+  }
+
   return (
     <div>
       <div>
@@ -45,7 +69,7 @@ const HomePage = () => {
           type="number"
           id="max-temperature-input"
           value={maxTemperature}
-          onChange={(event) => setMaxTemperature(event.target.value)}
+          onChange={handleMaxTemperatureChange}
         />
       </div>
       <div>
@@ -54,7 +78,7 @@ const HomePage = () => {
           type="number"
           id="min-temperature-input"
           value={minTemperature}
-          onChange={(event) => setMinTemperature(event.target.value)}
+          onChange={handleMinTemperatureChange}
         />
       </div>
       <div>
@@ -63,7 +87,7 @@ const HomePage = () => {
           type="number"
           id="max-humidity-input"
           value={maxHumidity}
-          onChange={(event) => setMaxHumidity(event.target.value)}
+          onChange={handleMaxHumidityChange}
         />
       </div>
       <div>
@@ -72,7 +96,7 @@ const HomePage = () => {
           type="number"
           id="min-humidity-input"
           value={minHumidity}
-          onChange={(event) => setMinHumidity(event.target.value)}
+          onChange={handleMinHumidityChange}
         />
       </div>
       <div>
@@ -82,16 +106,20 @@ const HomePage = () => {
             backgroundColor: temperatureColor,
             width: '50px',
             height: '50px',
+            borderRadius: '50%',
+            display: 'inline-block',
           }}
         ></div>
       </div>
       <div>
-        <p>Current Humidity: {humidity} %</p>
+        <p>Current Humidity: {humidity}%</p>
         <div
           style={{
             backgroundColor: humidityColor,
             width: '50px',
             height: '50px',
+            borderRadius: '50%',
+            display: 'inline-block',
           }}
         ></div>
       </div>
