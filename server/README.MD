@@ -33,3 +33,9 @@ $ npm install --save socket.io
 ```
 
 실시간으로 사용자에게 데이터를 제공하는 방법은 여러가지가 있다. 대표적으로는 WebSocket, WebRPC, MQTT 등이 있다. 하지만 이번 캡스톤 작품에서는 가볍고 빠른 WebSocket을 사용하기로 하였다.
+
+### CORS (Cross-Origin Resource Sharing)
+
+```
+$ npm install --save cors
+```

@@ -23,3 +23,8 @@ $ npm install --save axios
 ```
 $ npm install --save styled-components
 ```
+
+### Socket.io-Client
+```
+$ npm install --save socket.io-client
+```
