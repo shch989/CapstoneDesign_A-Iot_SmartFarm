@@ -18,6 +18,20 @@ $ sudo apt-get install npm
 $ npm -v
 ```
 
+### NestJS Cli 설치 *NodeJS 14버전 이상
+```
+$ npm i -g @nestjs/cli
+```
+
+### NestJS 애플리케이션 생성
+```
+$ nest new <project_name>
+```
+
+```
+$ npm install --save node-dht-sensor
+```
+
 ### node-dht-sensor를 라즈베리파이에서 설치하여 ASAIR AM2302(DHT22)를 제어
 
 ```
@@ -29,13 +43,7 @@ NodeJS에서 제공하는 GPIO의 onoff를 사용하려고 하였으나 ASAIR AM
 ### Socket.io를 이용한 실시간 양방향 통신 구현
 
 ```
-$ npm install --save socket.io
+$ npm i --save @nestjs/websockets @nestjs/platform-socket.io
 ```
 
 실시간으로 사용자에게 데이터를 제공하는 방법은 여러가지가 있다. 대표적으로는 WebSocket, WebRPC, MQTT 등이 있다. 하지만 이번 캡스톤 작품에서는 가볍고 빠른 WebSocket을 사용하기로 하였다.
-
-### CORS (Cross-Origin Resource Sharing)
-
-```
-$ npm install --save cors
-```
