@@ -13,6 +13,7 @@ import Footer from './components/Footer'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
+import NotFoundPage from './pages/NotFoundPage'
 
 const Layout = ({ children }) => {
   // 현재 경로를 가져오기 위해 useLocation hook을 사용.
@@ -30,10 +31,6 @@ const Layout = ({ children }) => {
       <Footer />
     </Fragment>
   )
-}
-
-const NotFoundPage = () => {
-  return <h1>Page Not Found</h1>
 }
 
 const App = () => {
