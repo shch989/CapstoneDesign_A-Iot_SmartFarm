@@ -17,9 +17,9 @@ import RegisterPage from './pages/RegisterPage'
 import NotFoundPage from './pages/NotFoundPage'
 
 const Main = styled.main`
-  padding: 0 10%;
+  padding: 0 5%;
   margin-top: 84px;
-  height: 100%
+  height: 100%;
 `
 
 const Layout = ({ children }) => {

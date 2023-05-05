@@ -6,7 +6,6 @@ import logo from '../public/logo.png'
 const Container = styled.nav`
   position: fixed;
   top: 0;
-  left: 0;
   width: 100%;
   padding: 10px 0;
 `
@@ -15,7 +14,7 @@ const MainNav = styled.div`
   display: flex;
   align-items: center;
   color: #fff;
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
 `
 
@@ -119,7 +118,7 @@ function Navbar() {
           </MenuItem>
         </Menu>
         <User>
-          <UserProfile>Welcome 성현(님)</UserProfile>
+          <UserProfile>Welcome 유저(님)</UserProfile>
           <Logout href="/login">
             LogOut
             <FiLogOut />
