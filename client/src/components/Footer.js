@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 const Container = styled.footer`
   padding: 1rem;
-  background-color: #008080;
+  background-color: #e0ffff;
 `
 const MainFooter = styled.div`
   width: 80%;
@@ -12,7 +12,8 @@ const MainFooter = styled.div`
   justify-content: center;
   align-items: center;
   padding: 1rem;
-  background-color: #008080;
+  background-color: #e0ffff;
+
   color: #fff;
 `
 

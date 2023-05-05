@@ -5,6 +5,7 @@ import {
   Route,
   useLocation,
 } from 'react-router-dom'
+import styled from 'styled-components'
 
 // Components
 import Navbar from './components/Navbar'
@@ -14,6 +15,12 @@ import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import NotFoundPage from './pages/NotFoundPage'
+
+const Main = styled.main`
+  padding: 0 10%;
+  margin-top: 84px;
+  height: 100%
+`
 
 const Layout = ({ children }) => {
   // 현재 경로를 가져오기 위해 useLocation hook을 사용.
@@ -27,7 +34,7 @@ const Layout = ({ children }) => {
   return (
     <Fragment>
       <Navbar />
-      <main>{children}</main>
+      <Main>{children}</Main>
       <Footer />
     </Fragment>
   )

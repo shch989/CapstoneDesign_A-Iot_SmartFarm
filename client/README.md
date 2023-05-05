@@ -24,6 +24,11 @@ $ npm install --save axios
 $ npm install --save styled-components
 ```
 
+### React-Icon
+```
+$ npm install --save react-icons
+```
+
 ### Socket.io-Client
 ```
 $ npm install --save socket.io-client

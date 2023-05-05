@@ -6,7 +6,6 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #e0ffff;
 `;
 
 const Text = styled.h1`
