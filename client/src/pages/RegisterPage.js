@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #c4df9b;
+  background-color: #e0ffff;
 `
 
 const FormWrapper = styled.div`
@@ -46,14 +46,14 @@ const Button = styled.button`
   margin-top: 20px;
   border: none;
   border-radius: 5px;
-  background-color: #4caf50;
+  background-color: #008080;
   color: #fff;
   font-size: 16px;
   font-weight: 700;
   cursor: pointer;
 
   &:hover {
-    background-color: #3e8e41;
+    background-color: #056b93;
   }
 
   &:focus {

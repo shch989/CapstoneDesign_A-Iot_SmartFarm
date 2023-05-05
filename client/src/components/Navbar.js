@@ -1,68 +1,78 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
+import styled from 'styled-components'
+import logo from '../public/logo.png'
 
 const Container = styled.nav`
+`
+
+const MainNav = styled.nav`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 1rem;
-  background-color: #008080;
   color: #fff;
-`;
+  width: 70%;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+`
 
 const Logo = styled.a`
-  font-size: 1.5rem;
-  font-weight: bold;
-  text-decoration: none;
-`;
+  .main_logo {
+    height: 64px;
+    width: 64px;
+    border-radius: 50%;
+  }
+`
 
 const Menu = styled.ul`
   display: flex;
   list-style-type: none;
-`;
+  padding-left: 0;
+`
 
 const MenuItem = styled.li`
-  margin-left: 1.5rem;
+  margin-left: 1rem;
 
   a {
     display: inline-block;
-    padding: 0.5rem 1rem;
-    background-color: #fff;
-    color: #008000;
+    padding: 0, 0.5rem, 0.5rem, 0.5rem;
+    font-size: 25px;
+    font-weight: 600;
+    color: #A2A2A2;
     text-decoration: none;
-    border-radius: 0.25rem;
     transition: all 0.2s;
-
-    &:hover {
-      background-color: #008000;
-      color: #fff;
-    }
   }
-`;
+`
 
 function Navbar() {
   return (
     <Container>
-      <Logo href="/">My Website</Logo>
-      <Menu>
-        <MenuItem>
-          <a href="/">Home</a>
-        </MenuItem>
-        <MenuItem>
-          <a href="/about">About</a>
-        </MenuItem>
-        <MenuItem>
-          <a href="/services">Services</a>
-        </MenuItem>
-        <MenuItem>
-          <a href="/blog">Blog</a>
-        </MenuItem>
-        <MenuItem>
-          <a href="/contact">Contact</a>
-        </MenuItem>
-      </Menu>
+      <MainNav>
+        <Logo href="/">
+          <img src={logo} alt="logo" className="main_logo" />
+        </Logo>
+        <Menu>
+          <MenuItem>
+            <a href="/">Home</a>
+          </MenuItem>
+          <MenuItem>
+            <a href="/about">About</a>
+          </MenuItem>
+          <MenuItem>
+            <a href="/services">Services</a>
+          </MenuItem>
+          <MenuItem>
+            <a href="/blog">Blog</a>
+          </MenuItem>
+          <MenuItem>
+            <a href="/contact">Contact</a>
+          </MenuItem>
+        </Menu>
+      </MainNav>
     </Container>
-  );
+  )
 }
 
-export default Navbar;
+export default Navbar
