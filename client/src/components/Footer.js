@@ -79,7 +79,7 @@ const Footer = () => {
             <br />
             <b>Tel :</b> 010-9976-2790
             <br />
-            <b>AI Github :</b>{' '}
+            <b>A.I Github :</b>{' '}
             <Link href="https://github.com/ETTE154">
               https://github.com/ETTE154
             </Link>
@@ -93,7 +93,7 @@ const Footer = () => {
         <Section>
           <h4>팀원 역할분담</h4>
           <p>
-            <b>AI 담당자 :</b> 전채욱
+            <b>A.I 담당자 :</b> 전채욱
             <br />
             <b>S/W 담당자 :</b> 조성현
             <br />

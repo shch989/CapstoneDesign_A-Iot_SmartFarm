@@ -8,6 +8,8 @@ const Container = styled.nav`
   top: 0;
   width: 100%;
   padding: 10px 0;
+  background-color: #fff;
+  z-index:100;
 `
 
 const MainNav = styled.div`
