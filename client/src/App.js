@@ -20,7 +20,7 @@ import NotFoundPage from './pages/NotFoundPage'
 const Main = styled.main`
   padding: 0 5%;
   margin-top: 84px;
-  height: 100%;
+  min-height: 100vh;
 `
 
 const Layout = ({ children }) => {

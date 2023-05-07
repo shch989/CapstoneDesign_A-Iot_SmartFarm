@@ -2,10 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Container = styled.footer`
-  bottom: 0;
   width: 100%;
   background-color: #e0ffff;
-  padding: 1rem;
+  padding-top: 1rem;
+  bottom: 0;
 `
 const MainFooter = styled.div`
   display: flex;
