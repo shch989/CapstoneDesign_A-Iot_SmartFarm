@@ -13,7 +13,7 @@ const MainFooter = styled.div`
   align-items: center;
   justify-content: space-between;
   color: #000;
-  width: 60%;
+  width: 800px;
   margin: 0 auto;
   padding: 0.7rem 0;
 `
@@ -23,7 +23,6 @@ const Section = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-right: 4rem;
 
   h4 {
     font-size: 1rem;
