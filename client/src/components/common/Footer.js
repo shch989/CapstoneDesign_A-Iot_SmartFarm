@@ -4,7 +4,6 @@ import styled from 'styled-components'
 const Container = styled.footer`
   width: 100%;
   background-color: #e0ffff;
-  padding: 0.7rem 0;
   bottom: 0;
 `
 
@@ -16,10 +15,7 @@ const MainFooter = styled.div`
   color: #000;
   width: 60%;
   margin: 0 auto;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
+  padding: 0.7rem 0;
 `
 
 const Section = styled.div`

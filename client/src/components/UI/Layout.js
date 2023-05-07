@@ -5,9 +5,12 @@ import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 
 const Container = styled.main`
+  max-width: 2000px;
+  min-height: 100vh;
+  margin: 0 auto;
   padding: 0 5%;
   margin-top: 100px;
-  min-height: 100vh;
+  width: 100%;
 `
 
 const Layout = (props) => {
