@@ -33,3 +33,8 @@ $ npm install --save react-icons
 ```
 $ npm install --save socket.io-client
 ```
+
+### React Chart.js
+```
+$ npm install react-chartjs-2 chart.js
+```

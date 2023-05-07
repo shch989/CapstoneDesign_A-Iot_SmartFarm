@@ -8,12 +8,13 @@ import {
 import styled from 'styled-components'
 
 // Components
-import Navbar from './components/Navbar'
-import Footer from './components/Footer'
+import Navbar from './components/common/Navbar'
+import Footer from './components/common/Footer'
 // Pages
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
+import GraphPage from './pages/GraphPage'
 import NotFoundPage from './pages/NotFoundPage'
 
 const Main = styled.main`
@@ -49,6 +50,7 @@ const App = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/graph" element={<GraphPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Layout>

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { FiLogOut } from 'react-icons/fi'
-import logo from '../public/logo.png'
+import logo from '../../public/logo.png'
 
 const Container = styled.nav`
   position: fixed;
@@ -107,7 +107,7 @@ function Navbar() {
             <a href="/">Home</a>
           </MenuItem>
           <MenuItem>
-            <a href="/">Item1</a>
+            <a href="/graph">Graph</a>
           </MenuItem>
           <MenuItem>
             <a href="/">Item2</a>
