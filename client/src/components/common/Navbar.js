@@ -1,4 +1,5 @@
 import React from 'react'
+import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import { FiLogOut } from 'react-icons/fi'
 import logo from '../../public/logo.png'
@@ -8,7 +9,7 @@ const Container = styled.nav`
   top: 0;
   width: 100%;
   background-color: #fff;
-  z-index:100;
+  z-index: 100;
   height: 80px;
   padding: 5px 0;
 `
@@ -45,20 +46,19 @@ const Menu = styled.ul`
 
 const MenuItem = styled.li`
   margin-left: 1rem;
-
   a {
     display: inline-block;
     padding: 0.5rem;
     font-size: 25px;
     font-weight: 600;
-    color: #a2a2a2;
+    color: ${({ isActive }) => isActive ? '#000' : '#a2a2a2'};
     text-decoration: none;
     transition: all 0.2s;
     &:hover {
       color: #000;
     }
   }
-`
+`;
 
 const User = styled.div`
   margin-left: auto;
@@ -97,6 +97,8 @@ const Logout = styled.a`
 `
 
 function Navbar() {
+  const { pathname } = useLocation()
+
   return (
     <Container>
       <MainNav>
@@ -104,20 +106,20 @@ function Navbar() {
           <img src={logo} alt="logo" className="main_logo" />
         </Logo>
         <Menu>
-          <MenuItem>
+          <MenuItem isActive={pathname === '/'}>
             <a href="/">Home</a>
           </MenuItem>
-          <MenuItem>
+          <MenuItem isActive={pathname === '/graph'}>
             <a href="/graph">Graph</a>
           </MenuItem>
-          <MenuItem>
-            <a href="/">Item2</a>
+          <MenuItem isActive={pathname === '/control'}>
+            <a href="/control">Control</a>
           </MenuItem>
-          <MenuItem>
-            <a href="/">Item3</a>
+          <MenuItem isActive={pathname === '/cctv'}>
+            <a href="/cctv">CCTV</a>
           </MenuItem>
-          <MenuItem>
-            <a href="/">Item4</a>
+          <MenuItem isActive={pathname === '/feedback'}>
+            <a href="/feedback">FeedBack</a>
           </MenuItem>
         </Menu>
         <User>
