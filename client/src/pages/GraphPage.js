@@ -12,8 +12,7 @@ const Row = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
-  margin-bottom: 20px;
-  margin-top: 20px;
+  margin-bottom: 25px;
 `
 
 const GraphBox = styled.div`

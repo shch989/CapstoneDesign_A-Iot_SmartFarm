@@ -1,45 +1,13 @@
-import React, { Fragment } from 'react'
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-} from 'react-router-dom'
-import styled from 'styled-components'
+import React from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
-// Components
-import Navbar from './components/common/Navbar'
-import Footer from './components/common/Footer'
 // Pages
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import GraphPage from './pages/GraphPage'
 import NotFoundPage from './pages/NotFoundPage'
-
-const Main = styled.main`
-  padding: 0 5%;
-  margin-top: 84px;
-  min-height: 100vh;
-`
-
-const Layout = ({ children }) => {
-  // 현재 경로를 가져오기 위해 useLocation hook을 사용.
-  const { pathname } = useLocation()
-
-  // 로그인 페이지와 회원가입 페이지에는 Navbar와 Footer를 제외.
-  if (pathname === '/login' || pathname === '/register') {
-    return <main>{children}</main>
-  }
-
-  return (
-    <Fragment>
-      <Navbar />
-      <Main>{children}</Main>
-      <Footer />
-    </Fragment>
-  )
-}
+import Layout from './components/UI/Layout'
 
 const App = () => {
   return (

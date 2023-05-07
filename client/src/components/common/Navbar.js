@@ -7,9 +7,10 @@ const Container = styled.nav`
   position: fixed;
   top: 0;
   width: 100%;
-  padding: 10px 0;
   background-color: #fff;
   z-index:100;
+  height: 80px;
+  padding: 5px 0;
 `
 
 const MainNav = styled.div`
