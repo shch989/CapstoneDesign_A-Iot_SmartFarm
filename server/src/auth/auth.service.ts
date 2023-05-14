@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import axios from 'axios';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -28,4 +29,9 @@ export class AuthService {
     const data = response.data;
     return data;
   }
+
+  // async hashPassword() {
+  //   const salt = await bcrypt.genSalt();
+  //   const password = await bcrypt.hash(password, salt);
+  // }
 }

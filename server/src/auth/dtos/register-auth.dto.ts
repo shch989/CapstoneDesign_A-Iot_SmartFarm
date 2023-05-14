@@ -1,12 +1,16 @@
-import { IsString, IsInt } from 'class-validator';
+import { IsString, IsEmail, MinLength } from 'class-validator';
 
-export class CreateCatDto {
+export class RegisterDto {
   @IsString()
   name: string;
 
-  @IsInt()
-  age: number;
+  @IsEmail()
+  email: string;
 
   @IsString()
-  breed: string;
+  @MinLength(8)
+  password: string;
+
+  @IsString()
+  location: string;
 }

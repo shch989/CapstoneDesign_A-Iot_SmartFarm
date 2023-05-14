@@ -75,3 +75,8 @@ $ npm i --save class-validator class-transformer
 
 ### WeatherStack 사용하여 위도와 경도에 대한 날씨 정보 추출
 ### <a href="https://weatherstack.com/">API 공식문서 이동</a>
+
+### Mongoose 사용하여 MongoDB 연결
+```
+$ npm i @nestjs/mongoose mongoose
+```

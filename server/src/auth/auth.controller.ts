@@ -5,15 +5,16 @@ import { AuthService } from './auth.service';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('location')
-  async getLatLng(@Body('address') address: string) {
-    const location = await this.authService.getLatLng(address);
-    return location;
-  }
+  // 테스트용
+  // @Post('location')
+  // async getLatLng(@Body('address') address: string) {
+  //   const location = await this.authService.getLatLng(address);
+  //   return location;
+  // }
 
-  @Post('weather')
-  async getWeather(@Body('address') address: string) {
-    const weather = await this.authService.getWeather(address);
-    return weather;
-  }
+  // @Post('weather')
+  // async getWeather(@Body('address') address: string) {
+  //   const weather = await this.authService.getWeather(address);
+  //   return weather;
+  // }
 }
