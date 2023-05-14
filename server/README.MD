@@ -69,3 +69,9 @@ $ npm i -D @types/bcrypt
 ```
 $ npm i --save class-validator class-transformer
 ```
+
+### Google Maps Platform (Geocoding API) 사용하여 주소지의 위도와 경도 추출
+### <a href="https://console.cloud.google.com/welcome?project=smartfarm-386612">프로젝트 대쉬보드 이동</a>
+
+### WeatherStack 사용하여 위도와 경도에 대한 날씨 정보 추출
+### <a href="https://weatherstack.com/">API 공식문서 이동</a>
