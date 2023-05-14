@@ -2,24 +2,15 @@ import { Module } from '@nestjs/common';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { HttpModule } from '@nestjs/axios';
-import { ConfigModule } from '@nestjs/config';
-import { APP_INTERCEPTOR } from '@nestjs/core';
-import { SuccessInterceptor } from 'src/common/interceptors/success.interceptor';
+import { MongooseModule } from '@nestjs/mongoose';
+import { User, UserSchema } from './users.schema';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
+    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     HttpModule,
   ],
   controllers: [AuthController],
-  providers: [
-    AuthService,
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: SuccessInterceptor,
-    },
-  ],
+  providers: [AuthService],
 })
 export class AuthModule {}

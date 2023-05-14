@@ -80,3 +80,8 @@ $ npm i --save class-validator class-transformer
 ```
 $ npm i @nestjs/mongoose mongoose
 ```
+
+### Swagger를 사용한 문서 작성
+```
+$ npm install --save @nestjs/swagger
+```

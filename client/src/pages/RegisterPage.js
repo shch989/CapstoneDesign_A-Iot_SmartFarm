@@ -65,11 +65,11 @@ const RegisterPage = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [location, setLocation] = useState('')
+  const [address, setAddress] = useState('')
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log(name, email, password, location)
+    console.log(name, email, password, address)
   }
 
   return (
@@ -98,8 +98,8 @@ const RegisterPage = () => {
           <Input
             label="거주 지역"
             type="select"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
           >
             <option value="">선택하세요</option>
             <option value="서울">서울</option>
