@@ -1,17 +1,23 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  Injectable,
+} from '@nestjs/common';
 import axios from 'axios';
 import * as bcrypt from 'bcrypt';
 import { User } from './users.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { RegisterUserDto } from './dtos/register-auth.dto';
+import { UserRegisterDto } from './dtos/user-register.dto';
+import { UserLocationDto } from './dtos/user-location.dto';
 
 @Injectable()
 export class AuthService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
+
   private readonly googleApiKey = process.env.GOOGLE_API_KEY;
   private readonly weatherstackApiKey = process.env.WEATHER_STACK_API_KEY;
 
+  // 지역명이나 주소지를 입력할 수 GCP를 사용하여 위도와 경도 추출
   async getLatLng(address: string) {
     try {
       const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${this.googleApiKey}`;
@@ -26,13 +32,17 @@ export class AuthService {
       const coordinates = data.results[0].geometry.location;
       return coordinates;
     } catch (err) {
-      throw new HttpException('Failed to retrieve location data.', 500);
+      throw new HttpException(
+        'Failed to retrieve latitude and longitude data for the specified address.',
+        400,
+      );
     }
   }
 
-  async getWeather(address: string) {
+  // 위도와 경도를 WeatherStack API를 활용하여 날씨 정보 추출
+  async getWeather(userLocationDto: UserLocationDto) {
     try {
-      const { lat, lng } = await this.getLatLng(address);
+      const {lat, lng} = userLocationDto
       const url = `http://api.weatherstack.com/current?access_key=${this.weatherstackApiKey}&query=${lat},${lng}`;
       const response = await axios.get(url);
       const data = response.data;
@@ -42,13 +52,15 @@ export class AuthService {
     }
   }
 
+  // Bcrypt를 사용한 비밀번호 해쉬화
   async hashPassword(password: string) {
     const saltOrRounds = 10;
     const hash = await bcrypt.hash(password, saltOrRounds);
     return hash;
   }
 
-  async createUser(registerUserDto: RegisterUserDto) {
+  // 회원가입 정보를 활용하여 name, email, password(hashPassword()), address, location(getLatLng()) 값을 MongoDB에 저장
+  async createUser(registerUserDto: UserRegisterDto) {
     try {
       const { name, email, password, address } = registerUserDto;
 
@@ -66,6 +78,19 @@ export class AuthService {
         location,
       });
       return createdUser.registerData;
+    } catch (err) {
+      throw new HttpException(err.message, err.status || 500);
+    }
+  }
+
+  //
+  async findUserData(userId: string) {
+    try {
+      const user = await this.userModel.findById(userId).exec();
+      if (!user) {
+        throw new HttpException('User not found', 404);
+      }
+      return user;
     } catch (err) {
       throw new HttpException(err.message, err.status || 500);
     }
