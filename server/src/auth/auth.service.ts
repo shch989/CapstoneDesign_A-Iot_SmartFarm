@@ -1,10 +1,9 @@
-import { HttpException, Injectable, UseInterceptors } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import axios from 'axios';
 import * as bcrypt from 'bcrypt';
 import { User } from './users.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { SuccessInterceptor } from 'src/common/interceptors/success.interceptor';
 import { RegisterUserDto } from './dtos/register-auth.dto';
 
 @Injectable()
@@ -49,7 +48,6 @@ export class AuthService {
     return hash;
   }
 
-  @UseInterceptors(SuccessInterceptor)
   async createUser(registerUserDto: RegisterUserDto) {
     try {
       const { name, email, password, address } = registerUserDto;
