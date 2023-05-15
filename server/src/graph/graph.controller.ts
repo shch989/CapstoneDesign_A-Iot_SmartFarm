@@ -15,6 +15,7 @@ import { UsersRepository } from 'src/users/users.repository';
 export class GraphController {
   constructor(
     private readonly usersService: UsersService,
+    private readonly graphService: GraphService
   ) {}
 
   @UseInterceptors(SuccessInterceptor)
@@ -27,5 +28,6 @@ export class GraphController {
     // const location = user.location;
     // const weather = await this.graphService.getWeather(location);
     // return weather;
+    const weather = await this.graphService.getWeather(userId)
   }
 }
