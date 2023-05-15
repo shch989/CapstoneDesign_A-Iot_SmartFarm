@@ -85,3 +85,13 @@ $ npm i @nestjs/mongoose mongoose
 ```
 $ npm install --save @nestjs/swagger
 ```
+
+### Passport를 사용한 로그인 인증 및 세션 관리
+```
+$ npm install --save @nestjs/passport passport passport-local
+```
+
+### JWT를 사용한 인증 시스템의 토큰 생성
+```
+$ npm install --save @nestjs/jwt
+```
