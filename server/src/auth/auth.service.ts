@@ -8,14 +8,12 @@ import { User } from './users.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UserRegisterDto } from './dtos/user-register.dto';
-import { UserLocationDto } from './dtos/user-location.dto';
 
 @Injectable()
 export class AuthService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
   private readonly googleApiKey = process.env.GOOGLE_API_KEY;
-  private readonly weatherstackApiKey = process.env.WEATHER_STACK_API_KEY;
 
   // 지역명이나 주소지를 입력할 수 GCP를 사용하여 위도와 경도 추출
   async getLatLng(address: string) {
@@ -36,19 +34,6 @@ export class AuthService {
         'Failed to retrieve latitude and longitude data for the specified address.',
         400,
       );
-    }
-  }
-
-  // 위도와 경도를 WeatherStack API를 활용하여 날씨 정보 추출
-  async getWeather(userLocationDto: UserLocationDto) {
-    try {
-      const {lat, lng} = userLocationDto
-      const url = `http://api.weatherstack.com/current?access_key=${this.weatherstackApiKey}&query=${lat},${lng}`;
-      const response = await axios.get(url);
-      const data = response.data;
-      return data;
-    } catch (err) {
-      throw new HttpException(err, err.response.status);
     }
   }
 
@@ -83,7 +68,6 @@ export class AuthService {
     }
   }
 
-  //
   async findUserData(userId: string) {
     try {
       const user = await this.userModel.findById(userId).exec();
