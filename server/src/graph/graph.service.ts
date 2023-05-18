@@ -1,6 +1,6 @@
-import { HttpException, Injectable } from '@nestjs/common';
-import { UserLocationDto } from './dtos/user-location.dto';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import axios from 'axios';
+import { User } from 'src/users/schemas/users.schema';
 import { UsersRepository } from 'src/users/users.repository';
 
 @Injectable()
@@ -11,18 +11,19 @@ export class GraphService {
 
   // 위도와 경도를 WeatherStack API를 활용하여 날씨 정보 추출
   async getWeather(userId: string) {
-    const user = await this.usersRepository.findUserByUserId(userId);
-    if (!user) {
-      throw new HttpException('User not found', 404);
-    }
+    let user: User | null;
     try {
+      user = await this.usersRepository.findUserByUserId(userId);
       const { lat, lng } = user.location;
       const url = `http://api.weatherstack.com/current?access_key=${this.weatherstackApiKey}&query=${lat},${lng}`;
       const response = await axios.get(url);
       const data = response.data;
       return data;
     } catch (err) {
-      throw new HttpException(err, err.response.status);
+      if (!user) {
+        throw new HttpException('Not Found User.', 404);
+      }
+      throw new HttpException(err.message, err.status || 500);
     }
   }
 }

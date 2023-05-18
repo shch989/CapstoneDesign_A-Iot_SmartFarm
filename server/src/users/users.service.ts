@@ -8,12 +8,14 @@ import { UserRegisterDto } from './dtos/user-register.dto';
 import { User } from 'src/users/schemas/users.schema';
 // service
 import { AuthService } from 'src/auth/auth.service';
+import { UsersRepository } from './users.repository';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(User.name) private userModel: Model<User>,
     private readonly authServer: AuthService,
+    private readonly userRepository: UsersRepository,
   ) {}
 
   private readonly googleApiKey = process.env.GOOGLE_API_KEY;
@@ -33,10 +35,7 @@ export class UsersService {
       const coordinates = data.results[0].geometry.location;
       return coordinates;
     } catch (err) {
-      throw new HttpException(
-        'Failed to retrieve latitude and longitude data for the specified address.',
-        400,
-      );
+      throw new HttpException(err.message, err.status || 500);
     }
   }
 
@@ -45,7 +44,7 @@ export class UsersService {
     try {
       const { name, email, password, address } = registerUserDto;
 
-      const existingUser = await this.userModel.findOne({ email });
+      const existingUser = await this.userRepository.existsByEmail(email);
       if (existingUser) {
         throw new HttpException('User with this email already exists', 409);
       }
