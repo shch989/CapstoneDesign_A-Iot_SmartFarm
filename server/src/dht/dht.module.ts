@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { DhtGateway } from './dht.gateway';
 import { DhtService } from './dht.service';
+import { DhtController } from './dht.controller';
 
 @Module({
-  providers: [DhtGateway, DhtService]
+  providers: [DhtService],
+  controllers: [DhtController]
 })
-export class DhtModule {}
+export class DhtModule { }

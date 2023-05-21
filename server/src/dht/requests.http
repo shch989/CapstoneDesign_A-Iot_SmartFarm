@@ -1,0 +1,5 @@
+### DHT22의 온습도 센서의 온도값 GET
+GET http://localhost:5000/dht/temperature
+
+### DHT22의 온습도 센서의 습도값 GET
+GET http://localhost:5000/dht/humidity
