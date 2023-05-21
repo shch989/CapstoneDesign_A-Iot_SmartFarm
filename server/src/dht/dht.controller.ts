@@ -8,12 +8,12 @@ export class DhtController {
   constructor(private readonly dhtService: DhtService) { }
 
   @Get('/temperature')
-  async getTemperature(): Promise<any> {
+  async getTemperature(): Promise<{ temperature: number }> {
     return this.dhtService.getTemperature()
   }
 
   @Get('/humidity')
-  async getHumidity(): Promise<any> {
+  async getHumidity(): Promise<{ humidity: number }> {
     return this.dhtService.getHumidity()
   }
 }
