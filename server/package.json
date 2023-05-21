@@ -37,6 +37,7 @@
     "class-validator": "^0.14.0",
     "dotenv": "^16.0.3",
     "mongoose": "^7.1.1",
+    "node-dht-sensor": "^0.4.3",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "pigpio": "^3.3.1",
