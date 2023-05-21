@@ -1,5 +1,4 @@
 import { HttpException, Injectable } from '@nestjs/common';
-import { exec } from 'child_process';
 import * as dhtSensor from 'node-dht-sensor';
 
 
