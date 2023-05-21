@@ -38,6 +38,11 @@ $ npm install --save pigpio
 $ npm install --save node-dht-sensor
 ```
 
+### GPIO를 사용하여 센서 제어
+```
+$ npm install --save pigpio
+```
+
 NodeJS에서 제공하는 GPIO의 onoff를 사용하려고 하였으나 ASAIR AM2302(DHT22)의 경우 디지털 센서이기 때문에 node-dht-sensor를 사용해야한다.
 
 ### Socket.io를 이용한 실시간 양방향 통신 구현
