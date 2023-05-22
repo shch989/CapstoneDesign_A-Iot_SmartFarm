@@ -18,4 +18,5 @@ export class DhtController {
   async getHumidity(): Promise<{ humidity: number }> {
     return this.dhtService.getHumidity()
   }
+
 }

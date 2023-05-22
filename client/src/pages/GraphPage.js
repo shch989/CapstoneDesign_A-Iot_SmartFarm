@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import DhtSensor from '../components/Graph/DhtSensor'
 
 const Container = styled.div`
   display: flex;
@@ -35,8 +36,8 @@ const GraphPage = () => {
   return (
     <Container>
       <Row>
-        <GraphBox></GraphBox>
-        <GraphBox></GraphBox>
+        <GraphBox><DhtSensor sensorType="temperature" /></GraphBox>
+        <GraphBox><DhtSensor sensorType="humidity" /></GraphBox>
         <GraphBox></GraphBox>
       </Row>
       <Row>
