@@ -55,6 +55,7 @@
     "@types/node": "18.15.11",
     "@types/node-dht-sensor": "^0.4.0",
     "@types/supertest": "^2.0.11",
+    "@types/ws": "^8.5.4",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "eslint": "^8.0.1",

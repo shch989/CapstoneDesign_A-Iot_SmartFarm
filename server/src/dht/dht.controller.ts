@@ -7,15 +7,13 @@ import { SuccessInterceptor } from 'src/common/interceptors/success.interceptor'
 export class DhtController {
   constructor(private readonly dhtService: DhtService) { }
 
-  @UseInterceptors(SuccessInterceptor)
   @Get('/temperature')
-  async getTemperature(): Promise<{ temperature: number }> {
+  async getTemperature(): Promise<number> {
     return this.dhtService.getTemperature()
   }
 
-  @UseInterceptors(SuccessInterceptor)
   @Get('/humidity')
-  async getHumidity(): Promise<{ humidity: number }> {
+  async getHumidity(): Promise<number> {
     return this.dhtService.getHumidity()
   }
 
