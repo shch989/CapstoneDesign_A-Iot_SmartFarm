@@ -34,7 +34,7 @@ $ npm install --save react-icons
 $ npm install --save socket.io-client
 ```
 
-### React Chart.js
+### Apex Charts
 ```
-$ npm install react-chartjs-2 chart.js
+$ npm install --save react-apexcharts apexcharts
 ```

@@ -1,17 +1,17 @@
-import { OnGatewayConnection, OnGatewayDisconnect, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
+import { OnGatewayConnection, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 import { DhtService } from './dht.service';
 import { Server } from 'socket.io';
 
 @WebSocketGateway(5000, { namespace: 'dht', cors: { origin: '*' } })
-export class DhtGateway implements OnGatewayConnection, OnGatewayDisconnect {
+export class DhtGateway implements OnGatewayConnection {
 
   constructor(private readonly dhtService: DhtService) { }
 
   @WebSocketServer()
   server: Server;
 
-  private temperatureArray: number[] = [0, 0, 0, 0, 0];
-  private humidityArray: number[] = [0, 0, 0, 0, 0];
+  private temperatureArray: number[] = [];
+  private humidityArray: number[] = [];
 
   handleConnection() {
     setInterval(async () => {
@@ -22,11 +22,11 @@ export class DhtGateway implements OnGatewayConnection, OnGatewayDisconnect {
         const humidity = await this.dhtService.getHumidity();
         this.humidityArray.push(humidity)
 
-        if (this.temperatureArray.length > 5) {
+        if (this.temperatureArray.length > 10) {
           this.temperatureArray.shift();
         }
 
-        if (this.humidityArray.length > 5) {
+        if (this.humidityArray.length > 10) {
           this.humidityArray.shift();
         }
 
@@ -35,11 +35,6 @@ export class DhtGateway implements OnGatewayConnection, OnGatewayDisconnect {
       } catch (err) {
         console.error(err);
       }
-    }, 5000);
-  }
-
-  handleDisconnect() {
-    this.temperatureArray = [0, 0, 0, 0, 0];
-    this.humidityArray = [0, 0, 0, 0, 0];
+    }, 500);
   }
 }
