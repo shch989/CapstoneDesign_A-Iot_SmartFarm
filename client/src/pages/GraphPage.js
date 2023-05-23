@@ -1,20 +1,20 @@
-import React from 'react'
-import styled from 'styled-components'
-import DhtSensor from '../components/Graph/DhtSensor'
+import React from "react";
+import styled from "styled-components";
+import TemperatureSensor from "../components/Graph/TemperatureSensor";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-`
+`;
 
 const Row = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
   margin-bottom: 25px;
-`
+`;
 
 const GraphBox = styled.div`
   width: calc(33.33% - 20px);
@@ -22,7 +22,7 @@ const GraphBox = styled.div`
   border-radius: 20px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   background-color: #e0ffff;
-`
+`;
 
 const FullWidthGraphBox = styled.div`
   width: 100%;
@@ -30,21 +30,23 @@ const FullWidthGraphBox = styled.div`
   border-radius: 20px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   background-color: #e0ffff;
-`
+`;
 
 const GraphPage = () => {
   return (
     <Container>
       <Row>
-        <GraphBox><DhtSensor sensorType="temperature" /></GraphBox>
-        <GraphBox><DhtSensor sensorType="humidity" /></GraphBox>
+        <GraphBox>
+          <TemperatureSensor />
+        </GraphBox>
+        <GraphBox></GraphBox>
         <GraphBox></GraphBox>
       </Row>
       <Row>
         <FullWidthGraphBox />
       </Row>
     </Container>
-  )
-}
+  );
+};
 
-export default GraphPage
+export default GraphPage;

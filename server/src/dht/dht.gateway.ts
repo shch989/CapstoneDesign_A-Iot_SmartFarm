@@ -1,39 +1,29 @@
-import { OnGatewayConnection, OnGatewayDisconnect, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
-import { Server, Socket } from 'socket.io';
+import {  OnModuleInit } from '@nestjs/common';
+import { WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
+import { Server } from 'socket.io';
+import { SensorType, initialize as initializeSensor, read as readSensor } from 'node-dht-sensor';
 
-@WebSocketGateway({ namespace: 'dht' })
-export class DhtGateway implements OnGatewayConnection, OnGatewayDisconnect {
+@WebSocketGateway(5000, { namespace: 'dht' })
+export class DhtGateway implements OnModuleInit {
   @WebSocketServer()
   server: Server;
 
-  private temperatures: number[] = [];
-  private humidities: number[] = []
-
-  handleConnection(client: Socket) {
-    // 클라이언트 연결 시 최신 온도 값 전송
-    client.emit('temperatureUpdate', this.temperatures);
-    client.emit('humidityUpdate', this.humidities)
+  onModuleInit() {
+    initializeSensor(22, 4); // SensorType과 핀 번호에 맞게 수정
+    this.startSensorReading();
   }
 
-  handleDisconnect() { }
-
-  sendTemperatureUpdate() {
-    this.server.emit('temperatureUpdate', this.temperatures);
-  }
-  addTemperature(temperature: number) {
-    this.temperatures.push(temperature);
-    if (this.temperatures.length > 5) {
-      this.temperatures.shift();
-    }
+  private startSensorReading() {
+    setInterval(() => {
+      const sensorData = this.readSensorData();
+      this.server.emit('sensorData', sensorData);
+    }, 5000); // 주기적으로 센서 값을 읽고 WebSocket으로 전송 (5초마다)
   }
 
-  sendHumidityUpdate() {
-    this.server.emit('humidityUpdate', this.humidities);
-  }
-  addHumidity(humidity: number) {
-    this.humidities.push(humidity);
-    if (this.humidities.length > 5) {
-      this.humidities.shift();
-    }
+  private readSensorData() {
+    const data = readSensor();
+    const temperature = parseFloat(data.temperature.toFixed(2));
+    const humidity = parseFloat(data.humidity.toFixed(2));
+    return { temperature, humidity };
   }
 }
