@@ -100,20 +100,3 @@ $ npm install --save @nestjs/passport passport passport-local
 ```
 $ npm install --save @nestjs/jwt
 ```
-
-## 라즈베리파이 센서 연결 내용 정리
-
-### Python에서 NestJS으로 센서 값을 HTTP 요청
-```
-$ pip install requests
-```
-
-### DHT22 센서 값을 읽기 위한 Python 라이브러리
-```
-$ pip install adafruit-circuitpython-dht
-```
-
-### Python에서 .env 활용
-```
-$ pip install python-dotenv
-```

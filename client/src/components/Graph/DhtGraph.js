@@ -29,18 +29,17 @@ const DhtGraph = (props) => {
       ]}
       options={{
         xaxis: {
-          categories: ["-20", "-15", "-10", "-5", "now"],
+          categories: ["-4", "-3", "-2", "-1", "now"],
           title: {
-            text: 'Second(초)'
-          }
+            text: "Min(분)",
+          },
         },
-        yaxis: {
-          min: props.sensor === "temperature" ? -50 : 0,
-          max: props.sensor === "temperature" ? 50 : 100,
+        stroke: {
+          curve: "smooth", // 곡선 형태로 변경
         },
         title: {
           text: props.sensor === "temperature" ? "실내 온도" : "실내 습도",
-          align: 'top'
+          align: "top",
         },
       }}
     />

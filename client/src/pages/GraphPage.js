@@ -46,7 +46,7 @@ const GraphPage = () => {
         <SmallGraphBox></SmallGraphBox>
       </Row>
       <Row>
-        <LargeGraphBox />
+        <LargeGraphBox></LargeGraphBox>
       </Row>
     </Container>
   );

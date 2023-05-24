@@ -25,34 +25,4 @@ export class WeatherService {
       throw new HttpException(err.message, err.status || 500);
     }
   }
-
-  async getWeatherPrecip(userId: string): Promise<number | null> {
-    try {
-      const weather = await this.getWeather(userId);
-      const precip = weather.current.precip;
-      return typeof precip === "number" ? precip : null;
-    } catch (err) {
-      return null;
-    }
-  }
-  
-  async getWeatherTemperature(userId: string): Promise<number | null> {
-    try {
-      const weather = await this.getWeather(userId);
-      const temperature = weather.current.temperature;
-      return typeof temperature === "number" ? temperature : null;
-    } catch (err) {
-      return null;
-    }
-  }
-
-  async getWeatherHumidity(userId: string): Promise<number | null> {
-    try {
-      const weather = await this.getWeather(userId);
-      const humidity = weather.current.humidity;
-      return typeof humidity === "number" ? humidity : null;
-    } catch (err) {
-      return null;
-    }
-  }
 }

@@ -12,22 +12,4 @@ export class WeatherController {
     const weather = await this.weatherService.getWeather(userId);
     return weather;
   }
-
-  @Get('/precip/:userId')
-  async getPrecip(@Param('userId') userId: string) {
-    const precip = await this.weatherService.getWeatherPrecip(userId);
-    return precip
-  }
-
-  @Get('/temperature/:userId')
-  async getTemperature(@Param('userId') userId: string) {
-    const temperature = await this.weatherService.getWeatherTemperature(userId);
-    return temperature
-  }
-
-  @Get('/humidity/:userId')
-  async getHumidity(@Param('userId') userId: string) {
-    const humidity = await this.weatherService.getWeatherHumidity(userId);
-    return humidity
-  }
 }
