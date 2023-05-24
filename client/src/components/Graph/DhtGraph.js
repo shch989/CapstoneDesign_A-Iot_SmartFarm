@@ -4,7 +4,7 @@ import io from "socket.io-client";
 
 const socket = io("ws://localhost:5000/dht");
 
-const DhtSensor = (props) => {
+const DhtGraph = (props) => {
   const [sensorData, setSensorData] = useState([]);
 
   useEffect(() => {
@@ -29,26 +29,22 @@ const DhtSensor = (props) => {
       ]}
       options={{
         xaxis: {
-          categories: [
-            "45초 전",
-            "40초 전",
-            "35초 전",
-            "30초 전",
-            "25초 전",
-            "20초 전",
-            "15초 전",
-            "10초 전",
-            "5초 전",
-            "현재",
-          ],
+          categories: ["-20", "-15", "-10", "-5", "now"],
+          title: {
+            text: 'Second(초)'
+          }
         },
         yaxis: {
           min: props.sensor === "temperature" ? -50 : 0,
           max: props.sensor === "temperature" ? 50 : 100,
+        },
+        title: {
+          text: props.sensor === "temperature" ? "실내 온도" : "실내 습도",
+          align: 'top'
         },
       }}
     />
   );
 };
 
-export default DhtSensor;
+export default DhtGraph;

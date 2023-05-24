@@ -5,8 +5,7 @@ import { DhtGateway } from './dht.gateway';
 
 
 @Module({
-  imports: [],
   providers: [DhtService, DhtGateway],
-  controllers: [DhtController]
+  controllers: [DhtController],
 })
 export class DhtModule { }

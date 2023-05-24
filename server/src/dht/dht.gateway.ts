@@ -22,11 +22,11 @@ export class DhtGateway implements OnGatewayConnection {
         const humidity = await this.dhtService.getHumidity();
         this.humidityArray.push(humidity)
 
-        if (this.temperatureArray.length > 10) {
+        if (this.temperatureArray.length > 5) {
           this.temperatureArray.shift();
         }
 
-        if (this.humidityArray.length > 10) {
+        if (this.humidityArray.length > 5) {
           this.humidityArray.shift();
         }
 

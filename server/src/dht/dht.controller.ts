@@ -1,6 +1,5 @@
 import { Controller, Get, UseInterceptors } from '@nestjs/common';
 import { DhtService } from './dht.service';
-import { SuccessInterceptor } from 'src/common/interceptors/success.interceptor';
 
 
 @Controller('dht')

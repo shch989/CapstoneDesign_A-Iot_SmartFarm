@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import DhtSensor from "../components/Graph/DhtSensor";
+import DhtGraph from "../components/Graph/DhtGraph";
 
 const Container = styled.div`
   display: flex;
@@ -16,15 +16,16 @@ const Row = styled.div`
   margin-bottom: 25px;
 `;
 
-const GraphBox = styled.div`
+const SmallGraphBox = styled.div`
   width: calc(33.33% - 20px);
   height: 350px;
   border-radius: 20px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   background-color: #e0ffff;
+  padding: 15px;
 `;
 
-const FullWidthGraphBox = styled.div`
+const LargeGraphBox = styled.div`
   width: 100%;
   height: 600px;
   border-radius: 20px;
@@ -36,16 +37,16 @@ const GraphPage = () => {
   return (
     <Container>
       <Row>
-        <GraphBox>
-          <DhtSensor sensor={"temperature"} />
-        </GraphBox>
-        <GraphBox>
-          <DhtSensor sensor={"humidity"} />
-        </GraphBox>
-        <GraphBox></GraphBox>
+        <SmallGraphBox>
+          <DhtGraph sensor={"temperature"} />
+        </SmallGraphBox>
+        <SmallGraphBox>
+          <DhtGraph sensor={"humidity"} />
+        </SmallGraphBox>
+        <SmallGraphBox></SmallGraphBox>
       </Row>
       <Row>
-        <FullWidthGraphBox />
+        <LargeGraphBox />
       </Row>
     </Container>
   );

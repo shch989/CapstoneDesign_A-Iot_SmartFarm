@@ -3,18 +3,18 @@ import { DhtModule } from './dht/dht.module';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { LoggerMiddleware } from './common/middlewares/logger.middleware';
-import { GraphModule } from './graph/graph.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { WeatherModule } from './weather/weather.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGODB_URI),
     DhtModule,
-    GraphModule,
     UsersModule,
     AuthModule,
+    WeatherModule,
   ],
 })
 export class AppModule implements NestModule {

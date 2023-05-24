@@ -1,0 +1,10 @@
+### 회원가입 POST
+POST http://localhost:8080/users/register
+Content-Type: application/json
+
+{
+  "name": "test",
+  "email": "test@gmail.com",
+  "password": "testtest",
+  "address": "부산"
+}
