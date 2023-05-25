@@ -7,6 +7,10 @@ const socket = io("ws://localhost:5000/dht");
 
 const GraphWrapper = styled.div`
   width: 100%;
+  p {
+    text-align: center;
+    font-weight: 700;
+  }
 `;
 
 const DhtGraph = (props) => {
@@ -24,6 +28,10 @@ const DhtGraph = (props) => {
 
   return (
     <GraphWrapper>
+      <p>
+        {props.sensor === "temperature" ? "실내 온도" : "실내 습도"} :
+        {sensorData[sensorData.length - 1]}{props.sensor === "temperature" ? "°C" : "%"}
+      </p>
       <ApexCharts
         type="line"
         series={[
@@ -35,17 +43,24 @@ const DhtGraph = (props) => {
         ]}
         options={{
           xaxis: {
-            categories: ["-4", "-3", "-2", "-1", "now"],
+            categories: [
+              "-45",
+              "-40",
+              "-35",
+              "-30",
+              "-25",
+              "-20",
+              "-15",
+              "-10",
+              "-5",
+              "now",
+            ],
             title: {
-              text: "Min(분)",
+              text: "Sec(초)",
             },
           },
           stroke: {
             curve: "smooth", // 곡선 형태로 변경
-          },
-          title: {
-            text: props.sensor === "temperature" ? "실내 온도" : "실내 습도",
-            align: "top",
           },
         }}
       />

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import DhtGraph from "../components/Graph/DhtGraph";
+import WeatherGraph from "../components/Graph/WeatherGraph";
 
 const Container = styled.div`
   display: flex;
@@ -25,13 +26,12 @@ const SmallGraphBox = styled.div`
   padding: 15px;
 `;
 
-
 const LargeGraphBox = styled.div`
   width: 100%;
-  height: 600px;
   border-radius: 20px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   background-color: #e0ffff;
+  padding: 30px;
 `;
 
 const GraphPage = () => {
@@ -46,7 +46,9 @@ const GraphPage = () => {
         </SmallGraphBox>
       </Row>
       <Row>
-        <LargeGraphBox></LargeGraphBox>
+        <LargeGraphBox>
+          <WeatherGraph />
+        </LargeGraphBox>
       </Row>
     </Container>
   );

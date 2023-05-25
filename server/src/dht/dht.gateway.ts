@@ -4,8 +4,9 @@ import { Server } from 'socket.io';
 
 @WebSocketGateway(5000, { namespace: 'dht', cors: { origin: '*' } })
 export class DhtGateway implements OnGatewayConnection {
-  private temperatureArray: number[] = [0, 0, 0, 0, 0];
-  private humidityArray: number[] = [0, 0, 0, 0, 0];
+  private temperatureArray: number[] = [];
+  private humidityArray: number[] = [];
+  private interval: NodeJS.Timeout | undefined;
 
   constructor(private readonly dhtService: DhtService) {}
 
@@ -13,10 +14,12 @@ export class DhtGateway implements OnGatewayConnection {
   server: Server;
 
   handleConnection() {
-    this.updateData(); // 최초 실행
-    setInterval(() => {
-      this.updateData(); // 주기적으로 실행
-    }, 60000);
+    if (!this.interval) {
+      this.updateData(); // 최초 실행
+      this.interval = setInterval(() => {
+        this.updateData(); // 주기적으로 실행
+      }, 5000);
+    }
   }
 
   private async updateData() {
@@ -27,11 +30,11 @@ export class DhtGateway implements OnGatewayConnection {
       const humidity = await this.dhtService.getHumidity();
       this.humidityArray.push(humidity);
 
-      if (this.temperatureArray.length > 5) {
+      if (this.temperatureArray.length > 10) {
         this.temperatureArray.shift();
       }
 
-      if (this.humidityArray.length > 5) {
+      if (this.humidityArray.length > 10) {
         this.humidityArray.shift();
       }
 
