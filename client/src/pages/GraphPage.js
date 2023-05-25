@@ -17,13 +17,14 @@ const Row = styled.div`
 `;
 
 const SmallGraphBox = styled.div`
-  width: calc(33.33% - 20px);
-  height: 350px;
+  display: flex;
+  width: calc(50% - 20px);
   border-radius: 20px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   background-color: #e0ffff;
   padding: 15px;
 `;
+
 
 const LargeGraphBox = styled.div`
   width: 100%;
@@ -43,7 +44,6 @@ const GraphPage = () => {
         <SmallGraphBox>
           <DhtGraph sensor={"humidity"} />
         </SmallGraphBox>
-        <SmallGraphBox></SmallGraphBox>
       </Row>
       <Row>
         <LargeGraphBox></LargeGraphBox>
