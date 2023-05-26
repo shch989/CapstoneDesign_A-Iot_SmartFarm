@@ -6,5 +6,5 @@ Content-Type: application/json
   "name": "test",
   "email": "test@gmail.com",
   "password": "testtest",
-  "address": "부산"
+  "address": "부산광역시 수영구 남천동 광안해변로 15번길 뉴비치"
 }

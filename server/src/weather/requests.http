@@ -1,11 +1,2 @@
 ### 로그인한 유저가 거주하는 지역의 현재 날씨 GET
-GET http://localhost:8080/weather/646e0212b67b3d5cb35d0f10
-
-### 로그인한 유저가 거주하는 지역의 강수량 GET
-GET http://localhost:8080/weather/precip/646e0212b67b3d5cb35d0f10
-
-### 로그인한 유저가 거주하는 지역의 실외온도 GET
-GET http://localhost:8080/weather/temperature/646e0212b67b3d5cb35d0f10
-
-### 로그인한 유저가 거주하는 지역의 실외습도 GET
-GET http://localhost:8080/weather/humidity/646e0212b67b3d5cb35d0f10
+GET http://localhost:8080/weather/646f8e087fe786ec8d554202
