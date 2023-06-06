@@ -1,2 +1,2 @@
 ### 로그인한 유저가 거주하는 지역의 현재 날씨 GET
-GET http://localhost:8080/weather/646f8e087fe786ec8d554202
+GET http://localhost:8080/weather/647226b973194d41c6fb0013

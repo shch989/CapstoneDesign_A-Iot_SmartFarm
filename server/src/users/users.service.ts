@@ -9,14 +9,16 @@ import { User } from 'src/users/schemas/users.schema';
 // service
 import { AuthService } from 'src/auth/auth.service';
 import { UsersRepository } from './users.repository';
+import { DhtService } from 'src/dht/dht.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(User.name) private userModel: Model<User>,
-    private readonly authServer: AuthService,
+    private readonly authService: AuthService,
     private readonly userRepository: UsersRepository,
-  ) {}
+    private readonly dhtService: DhtService
+  ) { }
 
   private readonly googleApiKey = process.env.GOOGLE_API_KEY;
 
@@ -48,7 +50,7 @@ export class UsersService {
       if (existingUser) {
         throw new HttpException('User with this email already exists', 409);
       }
-      const hashed = await this.authServer.hashPassword(password);
+      const hashed = await this.authService.hashPassword(password);
       const location = await this.getLatLng(address);
       const createdUser = await this.userModel.create({
         name,
@@ -57,6 +59,7 @@ export class UsersService {
         address,
         location,
       });
+      await this.dhtService.createDhtData(createdUser.id)
       return createdUser.registerData;
     } catch (err) {
       throw new HttpException(err.message, err.status || 500);
