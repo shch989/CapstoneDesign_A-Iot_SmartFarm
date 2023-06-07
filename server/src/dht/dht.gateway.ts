@@ -8,7 +8,8 @@ export class DhtGateway implements OnGatewayConnection {
   private humidityArray: number[] = [];
   private interval: NodeJS.Timeout | undefined;
 
-  private dummyId: string = '647226b973194d41c6fb0013'
+  // 더미 아이디값
+  private dummyId: string = '647f6a5c2dfe4e3f6beadf5c'
 
   constructor(private readonly dhtService: DhtService) { }
 
@@ -27,11 +28,10 @@ export class DhtGateway implements OnGatewayConnection {
   private async accessData() {
     try {
       // 로그인 기능 완성 후 수정 필요
-      const { temperature, humidity } = await this.dhtService.getDhtDataByUserId(this.dummyId);
-      this.temperatureArray = temperature;
-      this.humidityArray = humidity;
+      const userData = await this.dhtService.getDhtDataByUserId(this.dummyId);
+      const { temperature, humidity } = userData
 
-      this.emitData();
+      this.emitData(temperature, humidity);
     } catch (err) {
       console.error(err);
     }
@@ -61,10 +61,10 @@ export class DhtGateway implements OnGatewayConnection {
     }
   }
 
-  private emitData() {
-    this.server.emit('temperatureData', this.temperatureArray);
-    this.server.emit('humidityData', this.humidityArray);
-    console.log('temperature', this.temperatureArray);
-    console.log('humidity', this.humidityArray);
+  private emitData(temperature: number[], humidity: number[]) {
+    this.server.emit('temperatureData', temperature);
+    this.server.emit('humidityData', humidity);
+    console.log('temperature', temperature);
+    console.log('humidity', humidity);
   }
 }

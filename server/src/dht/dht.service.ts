@@ -40,12 +40,11 @@ export class DhtService {
 
   // 신규 유저 Id로 연동된 DHT22 센서 기본 데이터 DB 생성
   async createDhtData(userId: string): Promise<DhtSensorDto> {
-    const id = userId;
     const humidity = [0, 0, 0, 0, 0];
     const temperature = [0, 0, 0, 0, 0];
 
     const dhtData = new this.dhtModel({
-      id,
+      userId,
       humidity,
       temperature,
     });
@@ -57,17 +56,27 @@ export class DhtService {
   async getDhtDataByUserId(userId: string): Promise<Dht> {
     const dhtData = await this.dhtModel.findOne({ id: userId }).exec();
     if (!dhtData) {
-      throw new NotFoundException('Dht data not found');
+      throw new NotFoundException('Not Found User.');
     }
     return dhtData;
   }
 
   // 유저 Id를 통해 현재 온습도 데이터를 DB에 저장
-  async updateDhtDataByUserId(userId: string, temperatureArray: number[], humidityArray: number[]) {
-    try {
-      await this.dhtModel.updateOne({ id: userId }, { temperature: temperatureArray, humidity: humidityArray }).exec();
-    } catch (err) {
-      console.error('Failed to update Dht data in MongoDB:', err);
+  async updateDhtDataByUserId(
+    userId: string,
+    temperature: number[],
+    humidity: number[]
+  ): Promise<Dht> {
+    const dhtData = await this.dhtModel.findOneAndUpdate(
+      { id: userId },
+      { temperature: [...temperature], humidity: [...humidity] },
+      { new: true, upsert: true }
+    ).exec();
+
+    if (!dhtData) {
+      throw new NotFoundException(`DHT data for user ID ${userId} not found`);
     }
+
+    return dhtData;
   }
 }

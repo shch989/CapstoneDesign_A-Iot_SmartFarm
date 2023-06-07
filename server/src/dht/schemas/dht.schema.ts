@@ -4,7 +4,7 @@ import { Document } from 'mongoose';
 @Schema()
 export class Dht extends Document {
   @Prop({ required: true, unique: true, ref: 'User' })
-  id: string;
+  userId: string;
 
   @Prop([Number])
   humidity: number[];

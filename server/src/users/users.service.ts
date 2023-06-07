@@ -10,6 +10,7 @@ import { User } from 'src/users/schemas/users.schema';
 import { AuthService } from 'src/auth/auth.service';
 import { UsersRepository } from './users.repository';
 import { DhtService } from 'src/dht/dht.service';
+import { WeatherService } from 'src/weather/weather.service';
 
 @Injectable()
 export class UsersService {
@@ -17,7 +18,8 @@ export class UsersService {
     @InjectModel(User.name) private userModel: Model<User>,
     private readonly authService: AuthService,
     private readonly userRepository: UsersRepository,
-    private readonly dhtService: DhtService
+    private readonly dhtService: DhtService,
+    private readonly weatherService: WeatherService
   ) { }
 
   private readonly googleApiKey = process.env.GOOGLE_API_KEY;
@@ -57,9 +59,10 @@ export class UsersService {
         email,
         password: hashed,
         address,
-        location,
+        location, 
       });
       await this.dhtService.createDhtData(createdUser.id)
+      await this.weatherService.createWeatherData(createdUser.id)
       return createdUser.registerData;
     } catch (err) {
       throw new HttpException(err.message, err.status || 500);
