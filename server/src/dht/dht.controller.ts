@@ -1,4 +1,4 @@
-import { Controller, Get, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Param, UseInterceptors } from '@nestjs/common';
 import { DhtService } from './dht.service';
 
 
@@ -14,6 +14,11 @@ export class DhtController {
   @Get('/humidity')
   async getHumidity(): Promise<number> {
     return this.dhtService.getHumidity()
+  }
+
+  @Get('/:id')
+  async getHumidityByUserId(@Param('id') userId: string) {
+    return this.dhtService.getDhtDataByUserId(userId)
   }
 
 }

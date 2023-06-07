@@ -53,11 +53,8 @@ export class DhtService {
   }
 
   // 유저 Id를 통해 해당 유저의 온습도 데이터를 DB에서 가져옴
-  async getDhtDataByUserId(userId: string): Promise<Dht> {
-    const dhtData = await this.dhtModel.findOne({ id: userId }).exec();
-    if (!dhtData) {
-      throw new NotFoundException('Not Found User.');
-    }
+  async getDhtDataByUserId(userId: string): Promise<DhtSensorDto> {
+    const dhtData = await this.dhtModel.findOne({ userId });
     return dhtData;
   }
 
@@ -66,9 +63,9 @@ export class DhtService {
     userId: string,
     temperature: number[],
     humidity: number[]
-  ): Promise<Dht> {
+  ): Promise<DhtSensorDto> {
     const dhtData = await this.dhtModel.findOneAndUpdate(
-      { id: userId },
+      { userId },
       { temperature: [...temperature], humidity: [...humidity] },
       { new: true, upsert: true }
     ).exec();

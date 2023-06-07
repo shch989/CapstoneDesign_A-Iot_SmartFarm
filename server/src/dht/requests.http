@@ -3,3 +3,6 @@ GET http://localhost:8080/dht/temperature
 
 ### DHT22의 온습도 센서의 습도값 GET
 GET http://localhost:8080/dht/humidity
+
+### DHT22의 온습도 센서의 습도값 GET
+GET http://localhost:8080/dht/648099cfce24a5b1337b1028
