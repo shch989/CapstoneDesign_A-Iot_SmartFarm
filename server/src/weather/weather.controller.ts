@@ -30,7 +30,7 @@ export class WeatherController {
   @UseInterceptors(SuccessInterceptor)
   @Get('/:userId/get')
   async getWeatherData(@Param('userId') userId: string) {
-    const weather = await this.weatherService.getWeatherData(userId);
+    const weather = await this.weatherService.getWeatherDataByUserId(userId);
     return weather;
   }
 }

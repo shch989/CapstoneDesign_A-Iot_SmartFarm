@@ -4,14 +4,12 @@ import { Server } from 'socket.io';
 
 @WebSocketGateway(5000, { namespace: 'dht', cors: { origin: '*' } })
 export class DhtGateway implements OnGatewayConnection {
-  private temperatureArray: number[] = [];
-  private humidityArray: number[] = [];
   private interval: NodeJS.Timeout | undefined;
-  private dummyId: string = '648099cfce24a5b1337b1028';
   private readonly initialData = {
     temperature: [null, null, null, null, null, null, null, null, null, null],
     humidity: [null, null, null, null, null, null, null, null, null, null]
   };
+  private dummyId: string = '648099cfce24a5b1337b1028';
 
   constructor(private readonly dhtService: DhtService) { }
 

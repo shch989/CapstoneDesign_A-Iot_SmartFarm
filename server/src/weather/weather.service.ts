@@ -62,7 +62,7 @@ export class WeatherService {
   async saveWeatherData(userId: string): Promise<WeatherDto> {
     const data = await this.getWeather(userId);
     const { address } = await this.usersRepository.findUserByUserId(userId);
-    const weatherData = await this.weatherModel.findOne({ id: userId }).exec();
+    const weatherData = await this.weatherModel.findOne({ userId });
 
     // 데이터가 있는 경우 새로운 데이터로 수정
     weatherData.location.country = address;
@@ -83,8 +83,8 @@ export class WeatherService {
   }
 
   // 유저 Id를 통해 날씨 정보를 DB에서 가져옴
-  async getWeatherData(userId: string): Promise<WeatherDto> {
-    const weatherData = await this.weatherModel.findOne({id: userId}).exec();
+  async getWeatherDataByUserId(userId: string): Promise<WeatherDto> {
+    const weatherData = await this.weatherModel.findOne({ userId });
     if (!weatherData) {
       const createData = await this.createWeatherData(userId);
       return createData
