@@ -1,12 +1,11 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import axios from 'axios';
-import { User } from 'src/users/schemas/users.schema';
 import { UsersRepository } from 'src/users/users.repository';
-import { Weather } from './schemas/weather.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { WeatherDto } from './dtos/weather.dto';
 import { Data } from 'src/users/schemas/data.schema';
+import { DataDto } from 'src/users/dtos/data.dto';
 
 @Injectable()
 export class WeatherService {
@@ -32,6 +31,7 @@ export class WeatherService {
     }
   }
 
+  // weatherData의 초기 데이터를 내보내는 함수
   async createWeatherData(): Promise<WeatherDto> {
     const weatherData = {
       temperature: null,
@@ -47,11 +47,10 @@ export class WeatherService {
     }
 
     return weatherData; // 새로운 데이터 저장
-
   }
 
   // getWeather() 함수의 결과 값의 필요한 정보만을 골라내서 DB에 저장
-  async saveWeatherData(id: string): Promise<WeatherDto> {
+  async saveWeatherData(id: string): Promise<DataDto> {
     const data = await this.getWeather(id);
     const userData = await this.dataModel.findById(id).exec();
     const weatherData = userData.weather
@@ -68,16 +67,12 @@ export class WeatherService {
     weatherData.cloudcover = data.current.cloudcover;
     weatherData.feelslike = data.current.feelslike;
 
-    return await weatherData.save(); // 수정된 데이터를 저장
+    return await userData.save();
   }
 
   // 유저 Id를 통해 날씨 정보를 DB에서 가져옴
-  // async getWeatherDataByUserId(userId: string): Promise<WeatherDto> {
-  //   const weatherData = await this.weatherModel.findOne({ userId });
-  //   if (!weatherData) {
-  //     const createData = await this.createWeatherData(userId);
-  //     return createData
-  //   }
-  //   return weatherData;
-  // }
+  async getWeatherDataByUserId(id: string): Promise<DataDto> {
+    const weatherData = await this.dataModel.findById(id).exec();
+    return weatherData;
+  }
 }

@@ -1,16 +1,12 @@
 import { OnGatewayConnection, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 import { DhtService } from './dht.service';
 import { Server } from 'socket.io';
+import { DataDto } from 'src/users/dtos/data.dto';
 
 @WebSocketGateway(5000, { namespace: 'dht', cors: { origin: '*' } })
 export class DhtGateway implements OnGatewayConnection {
   private interval: NodeJS.Timeout | undefined;
-  private readonly initialData = {
-    userId: null,
-    temperature: [null, null, null, null, null, null, null, null, null, null],
-    humidity: [null, null, null, null, null, null, null, null, null, null]
-  };
-  private dummyId: string = '648099cfce24a5b1337b1028';
+  private dummyId: string = '64821b32925e4d0aaa1389fa';
 
   constructor(private readonly dhtService: DhtService) { }
 
@@ -18,24 +14,17 @@ export class DhtGateway implements OnGatewayConnection {
   server: Server;
 
   handleConnection() {
-    if (!this.interval) {
-      this.accessData();
-      this.interval = setInterval(() => {
-        this.updateData();
-      }, 60000);
-    }
+    this.accessData();
+    setInterval(() => {
+      this.updateData();
+    }, 60000);
   }
+
 
   private async accessData() {
     try {
-      let userData = await this.dhtService.getDhtDataByUserId(this.dummyId);
-
-      if (!userData) {
-        userData = { ...this.initialData };
-        return this.emitData(userData.temperature, userData.humidity);
-      }
-
-      return this.emitData(userData.temperature, userData.humidity);
+      const sensorData = await this.dhtService.getDhtDataByUserId(this.dummyId);
+      return this.emitData(sensorData);
     } catch (err) {
       console.error(err);
     }
@@ -46,27 +35,26 @@ export class DhtGateway implements OnGatewayConnection {
       const temperatureData = await this.dhtService.getTemperature();
       const humidityData = await this.dhtService.getHumidity();
 
-      let userData = await this.dhtService.getDhtDataByUserId(this.dummyId);
+      const userData = await this.dhtService.getDhtDataByUserId(this.dummyId);
 
-      if (!userData) {
-        userData = { ...this.initialData };
-        return this.emitData(userData.temperature, userData.humidity);
+      userData.sensor.temperature.push(temperatureData);
+      userData.sensor.humidity.push(humidityData);
+
+      if (userData.sensor.temperature.length > 10) {
+        userData.sensor.temperature.shift();
       }
 
-      userData.temperature.push(temperatureData);
-      userData.humidity.push(humidityData);
-
-      if (userData.temperature.length > 10) {
-        userData.temperature.shift();
+      if (userData.sensor.humidity.length > 10) {
+        userData.sensor.humidity.shift();
       }
 
-      if (userData.humidity.length > 10) {
-        userData.humidity.shift();
-      }
+      const updatedData = await this.dhtService.updateDhtDataByUserId(
+        this.dummyId,
+        userData.sensor.temperature,
+        userData.sensor.humidity
+      );
 
-      await this.dhtService.updateDhtDataByUserId(this.dummyId, userData.temperature, userData.humidity);
-
-      return this.emitData(userData.temperature, userData.humidity);
+      return this.emitData(updatedData);
     } catch (err) {
       console.error(err);
     }
@@ -82,8 +70,8 @@ export class DhtGateway implements OnGatewayConnection {
     console.log('humidity', humidity);
   }
 
-  private emitData(temperature: number[], humidity: number[]) {
-    this.emitTemperatureData(temperature);
-    this.emitHumidityData(humidity);
+  private emitData(userData: DataDto) {
+    this.emitTemperatureData(userData.sensor.temperature);
+    this.emitHumidityData(userData.sensor.humidity);
   }
 }

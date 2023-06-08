@@ -42,7 +42,7 @@ export class DhtService {
   async createDhtData(): Promise<DhtSensorDto> {
     const temperature = [null, null, null, null, null, null, null, null, null, null];
     const humidity = [null, null, null, null, null, null, null, null, null, null];
-
+ 
     const dhtData = {
       temperature,
       humidity
@@ -52,12 +52,12 @@ export class DhtService {
   }
 
   // 유저 Id를 통해 해당 유저의 온습도 데이터를 DB에서 가져옴
-  async getDhtDataByUserId(id: string): Promise<DhtSensorDto> {
+  async getDhtDataByUserId(id: string) {
     const userData = await this.dataModel.findById(id).exec();
-    const { temperature, humidity } = userData.sensor
-    const dhtData = { temperature, humidity }
-
-    return dhtData;
+    if(!userData) {
+      throw new NotFoundException(`DHT data for user ID ${id} not found`);
+    }
+    return userData;
   }
 
   // 유저 Id를 통해 현재 온습도 데이터를 DB에 저장
@@ -66,16 +66,19 @@ export class DhtService {
     temperature: number[],
     humidity: number[]
   ): Promise<Data> {
-    const userData = await this.dataModel.findOneAndUpdate(
-      { id },
-      { temperature: [...temperature], humidity: [...humidity] },
+    const userData = await this.dataModel.findByIdAndUpdate(
+      id,
+      {
+        'sensor.temperature': [...temperature],
+        'sensor.humidity': [...humidity],
+      },
       { new: true, upsert: true }
     ).exec();
-
+  
     if (!userData) {
       throw new NotFoundException(`DHT data for user ID ${id} not found`);
     }
-
+  
     return userData;
   }
 }

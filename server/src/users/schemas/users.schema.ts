@@ -35,6 +35,7 @@ export class User extends Document {
 
   @Prop({
     required: true,
+    _id: false,
     type: {
       lat: {
         type: Number,

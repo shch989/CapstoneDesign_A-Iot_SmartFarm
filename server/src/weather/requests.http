@@ -1,11 +1,8 @@
 ### 로그인한 유저가 거주하는 지역의 현재 날씨 GET
-GET http://localhost:8080/weather/648099cfce24a5b1337b1028
-
-### 유저가 거주하는 지역의 현재 날씨 DB에 생성
-GET http://localhost:8080/weather/648099cfce24a5b1337b1028/create
+GET http://localhost:8080/weather/648205e1971e183f0afe53d0
 
 ### 유저가 거주하는 지역의 현재 날씨 DB에 저장
-GET http://localhost:8080/weather/648099cfce24a5b1337b1028/save
+GET http://localhost:8080/weather/648205e1971e183f0afe53d0/save
 
 ### 유저가 거주하는 지역의 현재 날씨 DB에서 가져옴
-GET http://localhost:8080/weather/648099cfce24a5b1337b1028/get
+GET http://localhost:8080/weather/648205e1971e183f0afe53d0/get

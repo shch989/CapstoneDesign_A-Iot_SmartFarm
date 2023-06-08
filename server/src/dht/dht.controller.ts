@@ -21,4 +21,9 @@ export class DhtController {
     return this.dhtService.getDhtDataByUserId(userId)
   }
 
+  @Get('/:id/change')
+  async updateDhtDataByUserId(@Param('id') userId: string) {
+    return this.dhtService.updateDhtDataByUserId(userId, [18, 18, 18, 18, 18, 18, 18, 18, 18, 18], [18, 18, 18, 18, 18, 18, 18, 18, 18, 18])
+  }
+
 }

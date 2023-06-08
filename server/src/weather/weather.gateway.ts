@@ -1,72 +1,49 @@
 import { OnGatewayConnection, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 import { Server } from 'socket.io';
 import { WeatherService } from './weather.service';
-import { WeatherDto } from './dtos/weather.dto';
+import { DataDto } from 'src/users/dtos/data.dto';
 
 @WebSocketGateway(5000, { namespace: 'weather', cors: { origin: '*' } })
 export class WeatherGateway implements OnGatewayConnection {
-  handleConnection(client: any, ...args: any[]) {
-    throw new Error('Method not implemented.');
+
+  private dummyId: string = '64821b32925e4d0aaa1389fa';
+
+  constructor(private readonly weatherService: WeatherService) { }
+
+  @WebSocketServer()
+  server: Server;
+
+  handleConnection() {
+    this.sendInitialWeatherData();
+    this.updateWeatherData()
+    setInterval(() => {
+      this.updateWeatherData();
+    }, 3600000);
   }
-  // private readonly initialData = {
-  //   "location": {
-  //     "country": null
-  //   },
-  //   "current": {
-  //     "temperature": null,
-  //     "weather_descriptions": [
-  //       null
-  //     ],
-  //     "wind_speed": null,
-  //     "wind_degree": null,
-  //     "wind_dir": null,
-  //     "pressure": null,
-  //     "precip": null,
-  //     "humidity": null,
-  //     "cloudcover": null,
-  //     "feelslike": null
-  //   }
-  // }
-  // private dummyId: string = '648099cfce24a5b1337b1028';
 
-  // constructor(private readonly weatherService: WeatherService) { }
+  // 최초 실행할 코드
+  private async sendInitialWeatherData() {
+    try {
+      const weatherData = await this.weatherService.getWeatherDataByUserId(this.dummyId);
+      return this.emitWeatherData(weatherData)
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
-  // @WebSocketServer()
-  // server: Server;
+  // 주기적으로 실행할 코드
+  private async updateWeatherData() {
+    try {
+      const weatherData = await this.weatherService.saveWeatherData(this.dummyId)
+      this.emitWeatherData(weatherData)
 
-  // handleConnection() {
-  //   this.sendInitialWeatherData();
-  //   setInterval(() => {
-  //     this.updateWeatherData();
-  //   }, 3600000);
-  // }
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
-  // // 최초 실행할 코드
-  // private async sendInitialWeatherData() {
-  //   try {
-  //     let weatherData = await this.weatherService.getWeatherDataByUserId(this.dummyId);
-  //     if (!weatherData) {
-  //       weatherData = { ...this.initialData };
-  //     }
-  //     return this.emitWeatherData(weatherData)
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // }
-
-  // // 주기적으로 실행할 코드
-  // private async updateWeatherData() {
-  //   try {
-  //     const weatherData = await this.weatherService.saveWeatherData(this.dummyId)
-  //     this.emitWeatherData(weatherData)
-
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // }
-
-  // private emitWeatherData(weatherData: WeatherDto) {
-  //   this.server.emit('weatherData', weatherData);
-  //   console.log('weather', weatherData)
-  // }
+  private emitWeatherData(userData: DataDto) {
+    this.server.emit('weatherData', userData);
+    console.log('weather', userData)
+  }
 }
