@@ -20,15 +20,15 @@ export class AuthService {
 
   async jwtLogIn(data: UserLoginDto) {
     const { email, password } = data;
-    const user = await this.usersRepository.findUserByEmail(email);
-    if (!user) {
+    const userData = await this.usersRepository.findUserByEmail(email);
+    if (!userData) {
       throw new HttpException('Check your email and password', 401);
     }
-    const isPasswordValidated = await bcrypt.compare(password, user.password);
+    const isPasswordValidated = await bcrypt.compare(password, userData.user.password);
     if (!isPasswordValidated) {
       throw new HttpException('Check your email and password', 401);
     }
-    const payload = { email: email, sub: user.id };
+    const payload = { email: email, sub: userData.id };
     return {
       access_token: this.jwtService.signAsync(payload),
     };

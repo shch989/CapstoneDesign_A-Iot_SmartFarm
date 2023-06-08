@@ -4,10 +4,10 @@ import { WeatherController } from './weather.controller';
 import { UsersModule } from 'src/users/users.module';
 import { WeatherGateway } from './weather.gateway';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Weather, WeatherSchema } from './schemas/weather.schema';
+import { Data, DataSchema } from 'src/users/schemas/data.schema';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: Weather.name, schema: WeatherSchema }]), forwardRef(() => UsersModule)],
+  imports: [MongooseModule.forFeature([{ name: Data.name, schema: DataSchema }]), forwardRef(() => UsersModule)],
   providers: [WeatherService, WeatherGateway],
   controllers: [WeatherController],
   exports: [WeatherService]

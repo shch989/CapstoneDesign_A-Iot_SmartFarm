@@ -1,15 +1,15 @@
 import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as dhtSensor from 'node-dht-sensor';
-import { Dht } from './schemas/dht.schema';
 import { Model } from 'mongoose';
 import { DhtSensorDto } from './dtos/dht-sensor.dto';
+import { Data } from 'src/users/schemas/data.schema';
 
 
 @Injectable()
 export class DhtService {
   constructor(
-    @InjectModel(Dht.name) private dhtModel: Model<Dht>,
+    @InjectModel(Data.name) private dataModel: Model<Data>,
   ) { }
 
   // DHT22 센서에서 온도 값을 가져오는 서비스
@@ -38,42 +38,44 @@ export class DhtService {
     }
   }
 
-  // 신규 유저 Id로 연동된 DHT22 센서 기본 데이터 DB 생성
-  async createDhtData(userId: string): Promise<DhtSensorDto> {
-    const humidity = [0, 0, 0, 0, 0];
-    const temperature = [0, 0, 0, 0, 0];
+  // 신규 유저의 DHT22 센서 기본 데이터 DB 생성
+  async createDhtData(): Promise<DhtSensorDto> {
+    const temperature = [null, null, null, null, null, null, null, null, null, null];
+    const humidity = [null, null, null, null, null, null, null, null, null, null];
 
-    const dhtData = new this.dhtModel({
-      userId,
-      humidity,
+    const dhtData = {
       temperature,
-    });
+      humidity
+    }
 
-    return dhtData.save();
+    return dhtData;
   }
 
   // 유저 Id를 통해 해당 유저의 온습도 데이터를 DB에서 가져옴
-  async getDhtDataByUserId(userId: string): Promise<DhtSensorDto> {
-    const dhtData = await this.dhtModel.findOne({ userId });
+  async getDhtDataByUserId(id: string): Promise<DhtSensorDto> {
+    const userData = await this.dataModel.findById(id).exec();
+    const { temperature, humidity } = userData.sensor
+    const dhtData = { temperature, humidity }
+
     return dhtData;
   }
 
   // 유저 Id를 통해 현재 온습도 데이터를 DB에 저장
   async updateDhtDataByUserId(
-    userId: string,
+    id: string,
     temperature: number[],
     humidity: number[]
-  ): Promise<DhtSensorDto> {
-    const dhtData = await this.dhtModel.findOneAndUpdate(
-      { userId },
+  ): Promise<Data> {
+    const userData = await this.dataModel.findOneAndUpdate(
+      { id },
       { temperature: [...temperature], humidity: [...humidity] },
       { new: true, upsert: true }
     ).exec();
 
-    if (!dhtData) {
-      throw new NotFoundException(`DHT data for user ID ${userId} not found`);
+    if (!userData) {
+      throw new NotFoundException(`DHT data for user ID ${id} not found`);
     }
 
-    return dhtData;
+    return userData;
   }
 }

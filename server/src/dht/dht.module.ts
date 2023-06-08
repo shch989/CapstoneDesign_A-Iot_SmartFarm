@@ -3,11 +3,11 @@ import { DhtService } from './dht.service';
 import { DhtController } from './dht.controller';
 import { DhtGateway } from './dht.gateway';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Dht, DhtSchema } from './schemas/dht.schema';
+import { Data, DataSchema } from 'src/users/schemas/data.schema';
 
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: Dht.name, schema: DhtSchema }])],
+  imports: [MongooseModule.forFeature([{ name: Data.name, schema: DataSchema }])],
   providers: [DhtService, DhtGateway],
   controllers: [DhtController],
   exports: [DhtService]

@@ -3,8 +3,8 @@ POST http://localhost:8080/users/register
 Content-Type: application/json
 
 {
-  "name": "test",
-  "email": "test@gmail.com",
-  "password": "testtest",
-  "address": "부산광역시 수영구 남천동 광안해변로 15번길 뉴비치"
+  "name": "test2",
+  "email": "test2@gmail.com",
+  "password": "tes21test",
+  "address": "부산 광역시 수영구 남천동 뉴비치아파트 508동 401호"
 }

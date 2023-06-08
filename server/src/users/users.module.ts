@@ -8,10 +8,11 @@ import { AuthModule } from 'src/auth/auth.module';
 import { UsersRepository } from './users.repository';
 import { DhtModule } from 'src/dht/dht.module';
 import { WeatherModule } from 'src/weather/weather.module';
+import { Data, DataSchema } from './schemas/data.schema';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    MongooseModule.forFeature([{ name: Data.name, schema: DataSchema }]),
     HttpModule,
     forwardRef(() => AuthModule),
     DhtModule,

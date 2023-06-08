@@ -2,31 +2,32 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './schemas/users.schema';
 import { Model, Types } from 'mongoose';
+import { Data } from './schemas/data.schema';
 
 @Injectable()
 export class UsersRepository {
   constructor(
-    @InjectModel(User.name) private readonly userModel: Model<User>,
+    @InjectModel(Data.name) private readonly dataModel: Model<Data>,
   ) {}
 
   async findUserByUserId(
     userId: string | Types.ObjectId,
-  ): Promise<User | null> {
-    const user = await this.userModel.findById(userId).exec();
+  ): Promise<Data | null> {
+    const user = await this.dataModel.findById(userId).exec();
     return user;
   }
 
-  async findUserByEmail(email: string): Promise<User | null> {
-    const user = await this.userModel.findOne({ email });
+  async findUserByEmail(email: string): Promise<Data | null> {
+    const user = await this.dataModel.findOne({ email });
     return user;
   }
 
   async existsByEmail(email: string): Promise<boolean> {
-    const result = await this.userModel.countDocuments({ email });
+    const result = await this.dataModel.countDocuments({ email });
     return result > 0;
   }
 
-  async create(user: User): Promise<User> {
-    return await this.userModel.create(user);
+  async create(user: User): Promise<Data> {
+    return await this.dataModel.create(user);
   }
 }

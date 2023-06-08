@@ -2,11 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { IsEmail, IsNotEmpty, IsObject, IsString } from 'class-validator';
 import { Document, SchemaOptions } from 'mongoose';
 
-const options: SchemaOptions = {
-  timestamps: true,
-};
-
-@Schema(options)
+@Schema({ _id: false })
 export class User extends Document {
   @Prop({
     required: true,
@@ -56,27 +52,6 @@ export class User extends Document {
     lat: number;
     lng: number;
   };
-
-  readonly registerData: {
-    id: string;
-    email: string;
-    name: string;
-    address: string;
-    location: object;
-  };
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
-
-UserSchema.virtual('registerData').get(function (this: User) {
-  return {
-    id: this.id,
-    email: this.email,
-    name: this.name,
-    address: this.address,
-    location: {
-      lat: this.location.lat,
-      lng: this.location.lng,
-    },
-  };
-});

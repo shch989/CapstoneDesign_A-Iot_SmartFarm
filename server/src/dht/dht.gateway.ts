@@ -6,6 +6,7 @@ import { Server } from 'socket.io';
 export class DhtGateway implements OnGatewayConnection {
   private interval: NodeJS.Timeout | undefined;
   private readonly initialData = {
+    userId: null,
     temperature: [null, null, null, null, null, null, null, null, null, null],
     humidity: [null, null, null, null, null, null, null, null, null, null]
   };

@@ -1,11 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-@Schema()
+@Schema({ _id: false })
 export class Dht extends Document {
-  @Prop({ required: true, unique: true, ref: 'User' })
-  userId: string;
-
   @Prop([Number])
   humidity: number[];
 

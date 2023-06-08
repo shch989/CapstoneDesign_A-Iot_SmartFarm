@@ -11,11 +11,13 @@ import { AuthService } from 'src/auth/auth.service';
 import { UsersRepository } from './users.repository';
 import { DhtService } from 'src/dht/dht.service';
 import { WeatherService } from 'src/weather/weather.service';
+import { Data } from './schemas/data.schema';
+import { DataDto } from './dtos/data.dto';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectModel(User.name) private userModel: Model<User>,
+    @InjectModel(Data.name) private dataModel: Model<Data>,
     private readonly authService: AuthService,
     private readonly userRepository: UsersRepository,
     private readonly dhtService: DhtService,
@@ -44,7 +46,7 @@ export class UsersService {
   }
 
   // 회원가입 정보를 활용하여 name, email, password(hashPassword()), address, location(getLatLng()) 값을 MongoDB에 저장
-  async createUser(registerUserDto: UserRegisterDto) {
+  async createUser(registerUserDto: UserRegisterDto): Promise<DataDto> {
     try {
       const { name, email, password, address } = registerUserDto;
 
@@ -54,16 +56,22 @@ export class UsersService {
       }
       const hashed = await this.authService.hashPassword(password);
       const location = await this.getLatLng(address);
-      const createdUser = await this.userModel.create({
+      const userData = {
         name,
         email,
         password: hashed,
         address,
-        location, 
+        location,
+      }
+      const sensorData = await this.dhtService.createDhtData()
+      const weatherData = await this.weatherService.createWeatherData()
+      const createdUser = await this.dataModel.create({
+        user: userData,
+        weather: weatherData,
+        sensor: sensorData,
       });
-      await this.dhtService.createDhtData(createdUser.id)
-      await this.weatherService.createWeatherData(createdUser.id)
-      return createdUser.registerData;
+      
+      return createdUser;
     } catch (err) {
       throw new HttpException(err.message, err.status || 500);
     }

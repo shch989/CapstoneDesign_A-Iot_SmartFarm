@@ -2,54 +2,37 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 @Schema({ _id: false })
-export class Location {
-  @Prop({ required: true })
-  country: string;
-}
+export class Weather extends Document {
 
-@Schema({ _id: false })
-export class Current {
-  @Prop({ required: true })
+  @Prop()
   temperature: number;
 
-  @Prop({ required: true })
+  @Prop()
   weather_descriptions: string[];
 
-  @Prop({ required: true })
+  @Prop()
   wind_speed: number;
 
-  @Prop({ required: true })
+  @Prop()
   wind_degree: number;
 
-  @Prop({ required: true })
+  @Prop()
   wind_dir: string;
 
-  @Prop({ required: true })
+  @Prop()
   pressure: number;
 
-  @Prop({ required: true })
+  @Prop()
   precip: number;
 
-  @Prop({ required: true })
+  @Prop()
   humidity: number;
 
-  @Prop({ required: true })
+  @Prop()
   cloudcover: number;
 
-  @Prop({ required: true })
+  @Prop()
   feelslike: number;
-}
-
-@Schema()
-export class Weather extends Document {
-  @Prop({ required: true, unique: true, ref: 'User' })
-  userId: string;
-
-  @Prop({ type: Location, required: true })
-  location: Location;
-
-  @Prop({ type: Current, required: true })
-  current: Current;
 }
 
 export const WeatherSchema = SchemaFactory.createForClass(Weather);

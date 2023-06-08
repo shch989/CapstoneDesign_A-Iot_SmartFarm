@@ -13,12 +13,12 @@ export class WeatherController {
     return weather;
   }
 
-  @UseInterceptors(SuccessInterceptor)
-  @Get('/:userId/create')
-  async createWeatherData(@Param('userId') userId: string) {
-    const weather = await this.weatherService.createWeatherData(userId);
-    return weather;
-  }
+  // @UseInterceptors(SuccessInterceptor)
+  // @Get('/:userId/create')
+  // async createWeatherData(@Param('userId') userId: string) {
+  //   const weather = await this.weatherService.createWeatherData(userId);
+  //   return weather;
+  // }
 
   @UseInterceptors(SuccessInterceptor)
   @Get('/:userId/save')
@@ -27,10 +27,10 @@ export class WeatherController {
     return weather;
   }
 
-  @UseInterceptors(SuccessInterceptor)
-  @Get('/:userId/get')
-  async getWeatherData(@Param('userId') userId: string) {
-    const weather = await this.weatherService.getWeatherDataByUserId(userId);
-    return weather;
-  }
+  // @UseInterceptors(SuccessInterceptor)
+  // @Get('/:userId/get')
+  // async getWeatherData(@Param('userId') userId: string) {
+  //   const weather = await this.weatherService.getWeatherDataByUserId(userId);
+  //   return weather;
+  // }
 }
