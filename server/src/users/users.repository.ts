@@ -18,12 +18,12 @@ export class UsersRepository {
   }
 
   async findUserByEmail(email: string): Promise<Data | null> {
-    const user = await this.dataModel.findOne({ email });
+    const user = await this.dataModel.findOne({ "user.email": email });
     return user;
   }
 
   async existsByEmail(email: string): Promise<boolean> {
-    const result = await this.dataModel.countDocuments({ email });
+    const result = await this.dataModel.countDocuments({ "user.email": email });
     return result > 0;
   }
 

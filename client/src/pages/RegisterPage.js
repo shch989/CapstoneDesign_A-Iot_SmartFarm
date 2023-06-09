@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import { Link, useNavigate  } from 'react-router-dom'
-import styled from 'styled-components'
-import Input from '../components/UI/Input'
-import axios from 'axios';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import Input from "../components/UI/Input";
+import axios from "axios";
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -10,7 +10,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   background-color: #e0ffff;
-`
+`;
 
 const FormWrapper = styled.div`
   max-width: 500px;
@@ -19,7 +19,7 @@ const FormWrapper = styled.div`
   background-color: #fff;
   border-radius: 20px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-`
+`;
 
 const Title = styled.h2`
   text-align: center;
@@ -27,7 +27,7 @@ const Title = styled.h2`
   font-size: 32px;
   font-weight: 700;
   margin-bottom: 20px;
-`
+`;
 
 const Text = styled.span`
   display: block;
@@ -38,7 +38,7 @@ const Text = styled.span`
   &:hover {
     color: #4caf50;
   }
-`
+`;
 
 const Button = styled.button`
   display: block;
@@ -60,34 +60,34 @@ const Button = styled.button`
   &:focus {
     outline: none;
   }
-`
+`;
 
 const RegisterPage = () => {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [address, setAddress] = useState('')
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [address, setAddress] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8080/users/register', {
+      await axios.post("http://localhost:8080/users/register", {
         name,
         email,
         password,
         address,
       });
-      
+
       // 회원가입 성공 시 처리할 로직 작성
-      console.log('회원가입 성공:', response.data);
-      navigate('/login')
+      alert("회원가입 성공:");
+      navigate("/login");
     } catch (error) {
       // 회원가입 실패 시 처리할 로직 작성
-      console.error('회원가입 실패:', error.message);
+      console.error("회원가입 실패:", error.message);
     }
-  }
+  };
 
   return (
     <Wrapper>
@@ -144,7 +144,7 @@ const RegisterPage = () => {
         </form>
       </FormWrapper>
     </Wrapper>
-  )
-}
+  );
+};
 
-export default RegisterPage
+export default RegisterPage;

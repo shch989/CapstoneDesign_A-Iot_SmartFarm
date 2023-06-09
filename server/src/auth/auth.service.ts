@@ -29,8 +29,9 @@ export class AuthService {
       throw new HttpException('Check your email and password', 401);
     }
     const payload = { email: email, sub: userData.id };
+    const token = await this.jwtService.signAsync(payload, { secret: process.env.JWT_SECRET_KEY })
     return {
-      access_token: this.jwtService.signAsync(payload),
+      access_token: token
     };
   }
 }

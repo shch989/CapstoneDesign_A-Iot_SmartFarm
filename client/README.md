@@ -38,3 +38,8 @@ $ npm install --save socket.io-client
 ```
 $ npm install --save react-apexcharts apexcharts
 ```
+
+### Redux-Toolkit
+```
+$ npm install --save redux react-redux @reduxjs/toolkit
+```

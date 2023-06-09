@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Input from '../components/UI/Input';
 import axios from 'axios';
@@ -66,18 +66,20 @@ const Button = styled.button`
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8080/api/login', { email, password });
-      const { access_token } = response.data;
+      const response = await axios.post('http://localhost:8080/users/login', { email, password });
+      const { access_token } = response.data.data;
+      localStorage.setItem('token', access_token)
 
-      // 토큰을 로컬 스토리지에 저장하거나 쿠키에 저장하는 등 필요한 처리를 수행합니다.
-      console.log('로그인 성공! 토큰:', access_token);
+      alert('로그인 성공!');
+      navigate('/')
     } catch (error) {
-      console.error('로그인 실패:', error.message);
+      alert('로그인 실패');
     }
   };
 
