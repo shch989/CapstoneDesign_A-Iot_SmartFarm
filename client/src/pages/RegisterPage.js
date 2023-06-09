@@ -85,7 +85,7 @@ const RegisterPage = () => {
       navigate("/login");
     } catch (error) {
       // 회원가입 실패 시 처리할 로직 작성
-      console.error("회원가입 실패:", error.message);
+      alert("회원가입 실패");
     }
   };
 
