@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate  } from 'react-router-dom'
 import styled from 'styled-components'
 import Input from '../components/UI/Input'
+import axios from 'axios';
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -66,10 +67,26 @@ const RegisterPage = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [address, setAddress] = useState('')
+  const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    console.log(name, email, password, address)
+
+    try {
+      const response = await axios.post('http://localhost:8080/users/register', {
+        name,
+        email,
+        password,
+        address,
+      });
+      
+      // 회원가입 성공 시 처리할 로직 작성
+      console.log('회원가입 성공:', response.data);
+      navigate('/login')
+    } catch (error) {
+      // 회원가입 실패 시 처리할 로직 작성
+      console.error('회원가입 실패:', error.message);
+    }
   }
 
   return (

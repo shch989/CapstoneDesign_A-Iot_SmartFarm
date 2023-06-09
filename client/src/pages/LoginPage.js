@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
-import Input from '../components/UI/Input'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import Input from '../components/UI/Input';
+import axios from 'axios';
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -9,7 +10,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   background-color: #e0ffff;
-`
+`;
 
 const FormWrapper = styled.div`
   flex: 2;
@@ -19,7 +20,7 @@ const FormWrapper = styled.div`
   background-color: #fff;
   border-radius: 20px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-`
+`;
 
 const Title = styled.h2`
   text-align: center;
@@ -27,7 +28,7 @@ const Title = styled.h2`
   font-size: 32px;
   font-weight: 700;
   margin-bottom: 20px;
-`
+`;
 
 const Text = styled.span`
   display: block;
@@ -38,7 +39,7 @@ const Text = styled.span`
   &:hover {
     color: #4caf50;
   }
-`
+`;
 
 const Button = styled.button`
   display: block;
@@ -60,16 +61,25 @@ const Button = styled.button`
   &:focus {
     outline: none;
   }
-`
+`;
 
 const LoginPage = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    console.log(email, password)
-  }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await axios.post('http://localhost:8080/api/login', { email, password });
+      const { access_token } = response.data;
+
+      // 토큰을 로컬 스토리지에 저장하거나 쿠키에 저장하는 등 필요한 처리를 수행합니다.
+      console.log('로그인 성공! 토큰:', access_token);
+    } catch (error) {
+      console.error('로그인 실패:', error.message);
+    }
+  };
 
   return (
     <Wrapper>
@@ -88,14 +98,14 @@ const LoginPage = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button type="submit">가입하기</Button>
+          <Button type="submit">로그인</Button>
           <Text>
             계정이 없으시다면 <Link to="/register">회원가입</Link>
           </Text>
         </form>
       </FormWrapper>
     </Wrapper>
-  )
-}
+  );
+};
 
-export default LoginPage
+export default LoginPage;
