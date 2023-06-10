@@ -3,8 +3,6 @@ import styled from "styled-components";
 import io from "socket.io-client";
 import Loading from "../UI/Loading";
 
-const socket = io("ws://localhost:5000/weather");
-
 const WeatherTable = styled.table`
   width: 100%;
   border-collapse: collapse;
@@ -39,21 +37,35 @@ const Heading2 = styled.h2`
 
 const WeatherGraph = () => {
   const [weatherData, setWeatherData] = useState(null);
+  const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    socket.on("weatherData", (data) => {
-      setWeatherData(data);
-    });
-  });
+    const token = localStorage.getItem("token");
+    if (token) {
+      const newSocket = io("http://localhost:5000/weather", {
+        auth: { token },
+      });
+      setSocket(newSocket);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (socket) {
+      socket.on("weatherData", (data) => {
+        setWeatherData(data);
+      });
+      return () => {
+        socket.disconnect();
+      };
+    }
+  }, [socket]);
 
   return (
     <React.Fragment>
       {weatherData ? (
         <div>
           <Heading1>실시간 날씨 정보</Heading1>
-          <Heading2>
-            위치: {weatherData.user.address}
-          </Heading2>
+          <Heading2>위치: {weatherData.user.address}</Heading2>
           <WeatherTable>
             <tbody>
               <tr>

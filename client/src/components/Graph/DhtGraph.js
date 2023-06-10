@@ -3,8 +3,6 @@ import styled from "styled-components";
 import ApexCharts from "react-apexcharts";
 import io from "socket.io-client";
 
-const socket = io("ws://localhost:5000/dht");
-
 const GraphWrapper = styled.div`
   width: 100%;
   p {
@@ -15,22 +13,46 @@ const GraphWrapper = styled.div`
 
 const DhtGraph = (props) => {
   const [sensorData, setSensorData] = useState([]);
+  const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    socket.on(`${props.sensor}Data`, (data) => {
-      setSensorData(data);
-    });
+    const token = localStorage.getItem("token");
+    if (token) {
+      const newSocket = io("http://localhost:5000/dht", {
+        auth: { token },
+      });
+      setSocket(newSocket);
+    }
+  }, []);
 
-    return () => {
-      socket.disconnect();
-    };
-  }, [props.sensor]);
+  useEffect(() => {
+    if (socket) {
+      socket.on("temperatureData", handleTemperatureData);
+      socket.on("humidityData", handleHumidityData);
+      return () => {
+        socket.disconnect();
+      };
+    }
+  }, [socket]);
+
+  const handleTemperatureData = (data) => {
+    if (props.sensor === "temperature") {
+      setSensorData(data);
+    }
+  };
+
+  const handleHumidityData = (data) => {
+    if (props.sensor === "humidity") {
+      setSensorData(data);
+    }
+  };
 
   return (
     <GraphWrapper>
       <p>
         {props.sensor === "temperature" ? "실내 온도" : "실내 습도"} :
-        {sensorData[sensorData.length - 1]}{props.sensor === "temperature" ? "°C" : "%"}
+        {sensorData[sensorData.length - 1]}
+        {props.sensor === "temperature" ? "°C" : "%"}
       </p>
       <ApexCharts
         type="line"
