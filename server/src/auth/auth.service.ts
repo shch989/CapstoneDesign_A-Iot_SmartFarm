@@ -34,16 +34,4 @@ export class AuthService {
       access_token: token
     };
   }
-
-  async validateUser(email: string, password: string): Promise<any> {
-    const userData = await this.usersRepository.findUserByEmail(email);
-    if (!userData) {
-      return null;
-    }
-    const isPasswordValidated = await bcrypt.compare(password, userData.user.password);
-    if (!isPasswordValidated) {
-      return null;
-    }
-    return userData;
-  }
 }
