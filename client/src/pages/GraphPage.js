@@ -1,7 +1,8 @@
-import React from "react";
+import React, { Fragment } from "react";
 import styled from "styled-components";
 import DhtGraph from "../components/Graph/DhtGraph";
 import WeatherGraph from "../components/Graph/WeatherGraph";
+import NotLogin from "./NotLogin";
 
 const Container = styled.div`
   display: flex;
@@ -35,22 +36,30 @@ const LargeGraphBox = styled.div`
 `;
 
 const GraphPage = () => {
+  const token = localStorage.getItem("token");
+
   return (
-    <Container>
-      <Row>
-        <SmallGraphBox>
-          <DhtGraph sensor={"temperature"} />
-        </SmallGraphBox>
-        <SmallGraphBox>
-          <DhtGraph sensor={"humidity"} />
-        </SmallGraphBox>
-      </Row>
-      <Row>
-        <LargeGraphBox>
-          <WeatherGraph />
-        </LargeGraphBox>
-      </Row>
-    </Container>
+    <Fragment>
+      {token ? (
+        <Container>
+          <Row>
+            <SmallGraphBox>
+              <DhtGraph sensor={"temperature"} />
+            </SmallGraphBox>
+            <SmallGraphBox>
+              <DhtGraph sensor={"humidity"} />
+            </SmallGraphBox>
+          </Row>
+          <Row>
+            <LargeGraphBox>
+              <WeatherGraph />
+            </LargeGraphBox>
+          </Row>
+        </Container>
+      ) : (
+        <NotLogin />
+      )}
+    </Fragment>
   );
 };
 
