@@ -12,7 +12,7 @@ export class DhtGateway implements OnGatewayConnection, OnGatewayDisconnect {
   constructor(
     private readonly dhtService: DhtService,
     private readonly jwtService: JwtService,
-  ) {}
+  ) { }
 
   @WebSocketServer()
   server: Server;
@@ -27,10 +27,13 @@ export class DhtGateway implements OnGatewayConnection, OnGatewayDisconnect {
     }
 
     try {
-      const decodedToken = this.jwtService.verify(token, {
-        secret: process.env.JWT_SECRET_KEY,
-      }); // 토큰 검증
-      const userId = decodedToken.sub; // 토큰에서 유저 ID 추출
+      const userId = this.getUserIdFromSocket(socket); // 유저 ID 추출
+      if (!userId) {
+        // 유효한 유저 ID가 없을 경우 연결 거부
+        console.log('유효한 유저 ID가 없습니다.');
+        socket.disconnect();
+        return;
+      }
       // 유효한 토큰인 경우 연결 허용
       socket.join(userId); // 유저별로 개별 방에 조인
       this.startUpdateData(userId);
@@ -52,7 +55,7 @@ export class DhtGateway implements OnGatewayConnection, OnGatewayDisconnect {
   private getUserIdFromSocket(socket: Socket): string | undefined {
     // 소켓에서 유저 ID를 추출하는 로직을 구현해야 합니다.
     // 예시로서는 토큰에서 유저 ID를 추출하는 것으로 가정합니다.
-    const token = socket.handshake.auth.token; 
+    const token = socket.handshake.auth.token;
     if (token) {
       const decodedToken = this.jwtService.verify(token, {
         secret: process.env.JWT_SECRET_KEY,
@@ -62,26 +65,17 @@ export class DhtGateway implements OnGatewayConnection, OnGatewayDisconnect {
     return undefined;
   }
 
-  private async accessData(userId: string) {
-    try {
-      const sensorData = await this.dhtService.getDhtDataByUserId(userId);
-      return this.emitData(userId, sensorData);
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
   private async startUpdateData(userId: string) {
     if (!this.intervalMap.has(userId)) {
       const interval = setInterval(() => {
-        this.updateData(userId);
+        this.updateDhtData(userId);
       }, 60000);
       this.intervalMap.set(userId, interval);
-      this.updateData(userId); // 첫 번째 호출을 추가합니다.
+      this.updateDhtData(userId); // 첫 번째 호출을 추가합니다.
     }
   }
 
-  private async updateData(userId: string) {
+  private async updateDhtData(userId: string) {
     try {
       const temperatureData = await this.dhtService.getTemperature();
       const humidityData = await this.dhtService.getHumidity();
@@ -119,7 +113,7 @@ export class DhtGateway implements OnGatewayConnection, OnGatewayDisconnect {
   private emitHumidityData(userId: string, humidity: number[]) {
     this.server.to(userId).emit('humidityData', humidity);
     console.log('humidity', humidity);
-  } 
+  }
 
   private emitData(userId: string, userData: DataDto) {
     this.emitTemperatureData(userId, userData.sensor.temperature);
