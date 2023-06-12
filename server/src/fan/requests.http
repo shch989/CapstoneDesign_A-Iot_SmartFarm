@@ -1,0 +1,5 @@
+### 송풍팬 동작
+GET http://localhost:8080/fan/on
+
+### 송풍팬 종료
+GET http://localhost:8080/fan/off
