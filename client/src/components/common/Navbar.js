@@ -81,6 +81,7 @@ const UserProfile = styled.a`
 function Navbar() {
   const { pathname } = useLocation();
   const token = localStorage.getItem("token");
+  const userName = localStorage.getItem('userName');
 
   return (
     <Container>
@@ -108,12 +109,11 @@ function Navbar() {
         <User>
           {token ? (
             <>
-              <UserProfile>Welcome 유저(님)</UserProfile>
+              <UserProfile>Welcome {userName}(님)</UserProfile>
               <LogOutButton />
             </>
           ) : (
             <>
-              <UserProfile>로그인 필요.</UserProfile>
               <LogInButton />
             </>
           )}

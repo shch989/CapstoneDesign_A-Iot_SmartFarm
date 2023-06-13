@@ -28,7 +28,7 @@ const Login = styled.a`
 const LogInButton = () => {
   return (
     <Login href="/login">
-      LogIn
+      Login
       <FiLogIn />
     </Login>
   )

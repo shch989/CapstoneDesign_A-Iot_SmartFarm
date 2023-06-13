@@ -73,8 +73,9 @@ const LoginPage = () => {
 
     try {
       const response = await axios.post('http://localhost:8080/users/login', { email, password });
-      const { access_token } = response.data.data;
+      const { access_token, name } = response.data.data;
       localStorage.setItem('token', access_token)
+      localStorage.setItem('userName', name);
 
       alert('로그인 성공!');
       navigate('/')

@@ -34,7 +34,7 @@ const LogOutButton = () => {
 
   return (
     <Logout onClick={handleLogout}>
-      LogOut
+      Logout
       <FiLogOut />
     </Logout>
   );

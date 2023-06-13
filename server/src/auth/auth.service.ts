@@ -9,7 +9,7 @@ export class AuthService {
   constructor(
     private readonly usersRepository: UsersRepository,
     private jwtService: JwtService,
-  ) {}
+  ) { }
 
   // Bcrypt를 사용한 비밀번호 해쉬화
   async hashPassword(password: string) {
@@ -31,7 +31,8 @@ export class AuthService {
     const payload = { email: email, sub: userData.id };
     const token = await this.jwtService.signAsync(payload, { secret: process.env.JWT_SECRET_KEY })
     return {
-      access_token: token
+      access_token: token,
+      name: userData.user.name
     };
   }
 }
