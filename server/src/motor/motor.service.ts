@@ -14,8 +14,7 @@ export class MotorService implements OnModuleInit, OnModuleDestroy {
   }
 
   onModuleDestroy() {
-    this.motor.writeSync(0);
-    this.motorReverse.writeSync(0);
+    this.stop();
     this.motor.unexport();
     this.motorReverse.unexport();
   }
