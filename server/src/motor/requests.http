@@ -1,0 +1,8 @@
+### 모터 정방향
+GET http://localhost:8080/motor/forward
+
+### 모터 역방향
+GET http://localhost:8080/motor/backward
+
+### 모터 종료
+GET http://localhost:8080/motor/stop

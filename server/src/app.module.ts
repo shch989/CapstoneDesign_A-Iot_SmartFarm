@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { WeatherModule } from './weather/weather.module';
 import { FanModule } from './fan/fan.module';
+import { MotorModule } from './motor/motor.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { FanModule } from './fan/fan.module';
     AuthModule,
     WeatherModule,
     FanModule,
+    MotorModule,
   ],
 })
 export class AppModule implements NestModule {

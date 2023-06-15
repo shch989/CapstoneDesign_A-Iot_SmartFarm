@@ -28,17 +28,13 @@ $ npm i -g @nestjs/cli
 $ nest new <project_name>
 ```
 
-```
-$ npm install --save pigpio
-```
-
 ### node-dht-sensor를 설치하여 라즈베리파이에 연결된 온습도 센서를 제어
 
 ```
 $ npm install --save node-dht-sensor
 ```
 
-### GPIO를 사용하여 센서 제어
+### GPIO를 사용하여 모터 제어
 ```
 $ npm install --save pigpio
 ```
