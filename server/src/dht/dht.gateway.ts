@@ -86,7 +86,7 @@ export class DhtGateway implements OnGatewayConnection, OnGatewayDisconnect {
       userData.sensor.temperature.push(temperatureData);
       userData.sensor.humidity.push(humidityData);
 
-      if(temperatureData > 30 || humidityData > 70 ) {
+      if(temperatureData > 25 || humidityData > 75 ) {
         this.fanService.rotateFan()
       } else {
         this.fanService.stop()

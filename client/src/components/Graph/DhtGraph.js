@@ -66,20 +66,17 @@ const DhtGraph = (props) => {
         options={{
           xaxis: {
             categories: [
-              "-9",
-              "-8",
-              "-7",
-              "-6",
-              "-5",
-              "-4",
-              "-3",
-              "-2",
-              "-1",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
               "now",
-            ],
-            title: {
-              text: "Min(분)",
-            },
+            ]
           },
           stroke: {
             curve: "smooth", // 곡선 형태로 변경

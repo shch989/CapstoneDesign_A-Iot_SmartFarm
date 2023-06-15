@@ -5,7 +5,7 @@ import { Gpio } from 'onoff';
 export class FanService implements OnModuleInit, OnModuleDestroy {
   private fan: Gpio;
 
-  private fanPin = 20;
+  private fanPin = 16;
 
   onModuleInit() {
     this.fan = new Gpio(this.fanPin, 'out');
