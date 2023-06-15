@@ -1,5 +1,5 @@
 ### 송풍팬 동작
-GET http://localhost:8080/fan/on
+GET http://localhost:8080/fan/rotate
 
 ### 송풍팬 종료
-GET http://localhost:8080/fan/off
+GET http://localhost:8080/fan/stop

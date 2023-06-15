@@ -1,25 +1,28 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
 import { Gpio } from 'onoff';
 
 @Injectable()
-export class FanService {
-  private fanPin: Gpio;
-  private enablePin: Gpio;
+export class FanService implements OnModuleInit, OnModuleDestroy {
+  private fan: Gpio;
 
-  constructor() {
-    this.fanPin = new Gpio(17, 'out');
-    this.enablePin = new Gpio(18, 'out');
+  private fanPin = 20;
+
+  onModuleInit() {
+    this.fan = new Gpio(this.fanPin, 'out');
   }
 
-  turnOnFan() {
-    this.enablePin.writeSync(1); // Enable B 채널 활성화
-    this.fanPin.writeSync(1); // 송풍팬 동작
-    return 'Fan turned on';
+  onModuleDestroy() {
+    this.stop();
+    this.fan.unexport();
   }
 
-  turnOffFan() {
-    this.fanPin.writeSync(0); // 송풍팬 정지
-    this.enablePin.writeSync(0); // Enable B 채널 비활성화
-    return 'Fan turned off';
+  rotateFan() {
+    console.log('송풍팬 작동');
+    this.fan.writeSync(1);
+  }
+
+  stop() {
+    console.log('송풍팬 정지');
+    this.fan.writeSync(0);
   }
 }

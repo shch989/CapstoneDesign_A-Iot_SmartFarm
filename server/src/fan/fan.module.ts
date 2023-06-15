@@ -4,6 +4,7 @@ import { FanController } from './fan.controller';
 
 @Module({
   providers: [FanService],
-  controllers: [FanController]
+  controllers: [FanController],
+  exports: [FanService]
 })
 export class FanModule {}

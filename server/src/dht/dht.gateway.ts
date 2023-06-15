@@ -3,6 +3,7 @@ import { Server, Socket } from 'socket.io';
 import { DhtService } from './dht.service';
 import { DataDto } from 'src/users/dtos/data.dto';
 import { JwtService } from '@nestjs/jwt';
+import { FanService } from 'src/fan/fan.service';
 
 @WebSocketGateway(5000, { namespace: 'dht', cors: { origin: '*' } })
 export class DhtGateway implements OnGatewayConnection, OnGatewayDisconnect {
@@ -12,6 +13,7 @@ export class DhtGateway implements OnGatewayConnection, OnGatewayDisconnect {
   constructor(
     private readonly dhtService: DhtService,
     private readonly jwtService: JwtService,
+    private readonly fanService: FanService
   ) { }
 
   @WebSocketServer()
@@ -53,8 +55,7 @@ export class DhtGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   private getUserIdFromSocket(socket: Socket): string | undefined {
-    // 소켓에서 유저 ID를 추출하는 로직을 구현해야 합니다.
-    // 예시로서는 토큰에서 유저 ID를 추출하는 것으로 가정합니다.
+    // 소켓에서 유저 ID를 추출
     const token = socket.handshake.auth.token;
     if (token) {
       const decodedToken = this.jwtService.verify(token, {
@@ -84,6 +85,12 @@ export class DhtGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
       userData.sensor.temperature.push(temperatureData);
       userData.sensor.humidity.push(humidityData);
+
+      if(temperatureData > 30 || humidityData > 70 ) {
+        this.fanService.rotateFan()
+      } else {
+        this.fanService.stop()
+      }
 
       if (userData.sensor.temperature.length > 10) {
         userData.sensor.temperature.shift();
