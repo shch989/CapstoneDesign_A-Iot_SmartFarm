@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import ControlButton from "../components/Control/ControlButton";
 
 const Container = styled.div`
   display: flex;
@@ -16,29 +17,10 @@ const ButtonWrapper = styled.div`
   top: 50%;
 `;
 
-const Button = styled.button`
-  flex: 1;
-  padding: 10px 20px;
-  margin: 5px;
-  border: none;
-  cursor: pointer;
-  background-color: white;
-  border: 1px solid teal;
-  color: teal;
-  margin-bottom: 20px;
-
-  &:hover {
-    border: 1px solid white;
-    background-color: teal;
-    color: black;
-  }
-`;
-
 const ControlPage = () => {
   const [buttonPressed, setButtonPressed] = useState(false);
 
-  const handleForwardButton = async (event) => {
-    event.preventDefault();
+  const handleForwardButton = async () => {
     setButtonPressed(true);
     try {
       await axios.get("http://localhost:8080/motor/forward");
@@ -48,8 +30,7 @@ const ControlPage = () => {
     }
   };
 
-  const handleBackwardButton = async (event) => {
-    event.preventDefault();
+  const handleBackwardButton = async () => {
     setButtonPressed(true);
     try {
       await axios.get("http://localhost:8080/motor/backward");
@@ -59,8 +40,7 @@ const ControlPage = () => {
     }
   };
 
-  const handleStopButton = async (event) => {
-    event.preventDefault();
+  const handleStopButton = async () => {
     setButtonPressed(false);
     try {
       await axios.get("http://localhost:8080/motor/stop");
@@ -73,30 +53,18 @@ const ControlPage = () => {
   return (
     <Container>
       <ButtonWrapper>
-        <Button
-          onMouseDown={handleForwardButton}
-          onMouseUp={handleStopButton}
-          onTouchStart={handleForwardButton}
-          onTouchEnd={handleStopButton}
-          style={{
-            backgroundColor: buttonPressed ? "teal" : "white",
-            color: buttonPressed ? "black" : "teal",
-          }}
-        >
-          천장 열기
-        </Button>
-        <Button
-          onMouseDown={handleBackwardButton}
-          onMouseUp={handleStopButton}
-          onTouchStart={handleBackwardButton}
-          onTouchEnd={handleStopButton}
-          style={{
-            backgroundColor: buttonPressed ? "teal" : "white",
-            color: buttonPressed ? "black" : "teal",
-          }}
-        >
-          천장 닫기
-        </Button>
+        <ControlButton
+          label="천장 열기"
+          onPress={handleForwardButton}
+          onRelease={handleStopButton}
+          buttonPressed={buttonPressed}
+        />
+        <ControlButton
+          label="천장 닫기"
+          onPress={handleBackwardButton}
+          onRelease={handleStopButton}
+          buttonPressed={buttonPressed}
+        />
       </ButtonWrapper>
     </Container>
   );

@@ -70,7 +70,7 @@ export class DhtGateway implements OnGatewayConnection, OnGatewayDisconnect {
     if (!this.intervalMap.has(userId)) {
       const interval = setInterval(() => {
         this.updateDhtData(userId);
-      }, 60000);
+      }, 10000);
       this.intervalMap.set(userId, interval);
       this.updateDhtData(userId); // 첫 번째 호출을 추가합니다.
     }
