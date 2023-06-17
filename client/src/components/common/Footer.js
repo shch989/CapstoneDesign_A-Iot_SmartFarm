@@ -5,6 +5,7 @@ const Container = styled.footer`
   width: 100%;
   background-color: #e0ffff;
   bottom: 0;
+  margin-top: 10px;
 `
 
 const MainFooter = styled.div`

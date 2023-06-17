@@ -19,6 +19,7 @@ import img11 from '../public/sample_images_12.png';
 const Title = styled.h1`
   font-size: 36px;
   margin: 10px 0;
+  margin-top: 5%;
 `;
 
 const ImageContainer = styled.div`
