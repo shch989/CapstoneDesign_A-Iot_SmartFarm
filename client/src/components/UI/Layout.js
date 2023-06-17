@@ -33,7 +33,7 @@ const Layout = (props) => {
     return (
       <Fragment>
         <Navbar />
-        { token ? <Container>{props.children}</Container> : <NotLogin />}
+        { true ? <Container>{props.children}</Container> : <NotLogin />}
         <Footer />
       </Fragment>
     )
