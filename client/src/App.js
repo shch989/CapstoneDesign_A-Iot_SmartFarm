@@ -8,6 +8,8 @@ import RegisterPage from './pages/RegisterPage'
 import GraphPage from './pages/GraphPage'
 import NotFoundPage from './pages/NotFoundPage'
 import ControlPage from './pages/ControlPage'
+import CctvPage from './pages/CctvPage'
+import FeedBackPage from './pages/FeedBackPage'
 // Components
 import Layout from './components/UI/Layout'
 
@@ -20,8 +22,10 @@ const App = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            <Route path="/control" element={<ControlPage />} />
             <Route path="/graph" element={<GraphPage />} />
+            <Route path="/control" element={<ControlPage />} />
+            <Route path="/cctv" element={<CctvPage />} />
+            <Route path="/feedback" element={<FeedBackPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Layout>

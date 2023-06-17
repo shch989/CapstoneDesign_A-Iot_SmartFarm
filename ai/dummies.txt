@@ -1,0 +1,2 @@
+0  cow
+1  dummies
