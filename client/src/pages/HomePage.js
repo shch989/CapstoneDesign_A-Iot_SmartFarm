@@ -6,7 +6,7 @@ import poto from '../public/poto.png'
 const StyledHome = styled.div`
   .posts {
     margin-top: 50px;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
     display: flex;
     flex-direction: column;
     gap: 100px;
