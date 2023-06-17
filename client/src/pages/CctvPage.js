@@ -84,7 +84,7 @@ const CctvPage = () => {
         alt="cctv"
       />
       <LoadMoreButton onClick={handleLoadMore}>
-        {showImage ? '간략히' : '더보기'}
+        {showImage ? '숨기기' : '더보기'}
       </LoadMoreButton>
       {showImage && (
         <ImageContainer>
