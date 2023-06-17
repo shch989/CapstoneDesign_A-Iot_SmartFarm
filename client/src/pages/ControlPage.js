@@ -1,15 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
+// Components
+import MainBody from '../components/UI/MainBody';
 import ControlButton from "../components/Control/ControlButton";
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-`;
-
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -52,7 +46,7 @@ const ControlPage = () => {
   };
 
   return (
-    <Container>
+    <MainBody>
       <ButtonWrapper>
         <ControlButton
           label="천장 열기"
@@ -67,7 +61,7 @@ const ControlPage = () => {
           buttonPressed={buttonPressed}
         />
       </ButtonWrapper>
-    </Container>
+    </MainBody>
   );
 };
 

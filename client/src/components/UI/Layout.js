@@ -1,16 +1,19 @@
 import React, { Fragment } from 'react'
-import Navbar from '../common/Navbar'
-import Footer from '../common/Footer'
 import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
+// Common
+import Navbar from '../common/Navbar'
+import Footer from '../common/Footer'
+// Page
 import NotLogin from '../../pages/NotLogin'
 
 const Container = styled.main`
   max-width: 2000px;
   min-height: 100vh;
+  height: 100%;
   margin: 0 auto;
-  padding: 0 5%;
-  margin-top: 100px;
+  padding: 20px 5%;
+  margin-top: 80px;
   width: 100%;
 `
 
@@ -30,7 +33,7 @@ const Layout = (props) => {
     return (
       <Fragment>
         <Navbar />
-        {true ? <Container>{props.children}</Container> : <NotLogin />}
+        { true ? <Container>{props.children}</Container> : <NotLogin />}
         <Footer />
       </Fragment>
     )

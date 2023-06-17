@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+// 테스트용
 import poto from '../public/poto.png'
 
 const StyledHome = styled.div`

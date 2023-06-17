@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+// Components
 import styled from "styled-components";
 import Input from "../components/UI/Input";
-import axios from "axios";
 
 const Wrapper = styled.div`
   height: 100vh;

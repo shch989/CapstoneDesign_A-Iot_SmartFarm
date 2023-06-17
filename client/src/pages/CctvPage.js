@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+// Components
+import MainBody from '../components/UI/MainBody';
+// 테스트용
 import cctv from '../public/sample_images_01.png';
 import img1 from '../public/sample_images_02.png';
 import img2 from '../public/sample_images_03.png';
@@ -13,14 +16,6 @@ import img9 from '../public/sample_images_10.png';
 import img10 from '../public/sample_images_11.png';
 import img11 from '../public/sample_images_12.png';
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-`;
-
 const Title = styled.h1`
   font-size: 36px;
   margin: 10px 0;
@@ -33,7 +28,6 @@ const ImageContainer = styled.div`
   overflow-y: hidden;
   max-width: 100%;
   height: auto;
-  margin-bottom: 30px;
   align-self: flex-start;
   padding: 10px;
 `;
@@ -52,7 +46,7 @@ const LoadMoreButton = styled.button`
   padding: 10px 20px;
   background-color: #e0e0e0;
   border: none;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   cursor: pointer;
 `;
 
@@ -81,7 +75,7 @@ const CctvPage = () => {
   };
 
   return (
-    <Container>
+    <MainBody>
       <Title>침입자 방지용 CCTV</Title>
       {/* <Image src="http://localhost:4000/video_feed" alt="cctv" /> */}
       <Cctv src={cctv} alt="cctv" />
@@ -95,7 +89,7 @@ const CctvPage = () => {
           ))}
         </ImageContainer>
       )}
-    </Container>
+    </MainBody>
   );
 };
 

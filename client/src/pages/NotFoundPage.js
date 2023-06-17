@@ -1,25 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-`;
-
-const Text = styled.h1`
-  font-size: 3rem;
-  color: #008080;
-  text-align: center;
-`;
+import React from 'react'
+// Components
+import MainText from '../components/UI/MainText'
 
 function NotFoundPage() {
-  return (
-    <Container>
-      <Text>404 - 페이지를 찾을 수 없습니다.</Text>
-    </Container>
-  );
+  return <MainText>404 - 페이지를 찾을 수 없습니다.</MainText>
 }
 
-export default NotFoundPage;
+export default NotFoundPage

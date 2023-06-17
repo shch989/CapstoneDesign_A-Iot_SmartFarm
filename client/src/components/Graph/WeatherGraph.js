@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import styled from "styled-components";
 import io from "socket.io-client";
 import Loading from "../UI/Loading";
@@ -61,9 +61,9 @@ const WeatherGraph = () => {
   }, [socket]);
 
   return (
-    <React.Fragment>
+    <Fragment>
       {weatherData ? (
-        <div>
+        <Fragment>
           <Heading1>실시간 날씨 정보</Heading1>
           <Heading2>위치: {weatherData.user.address}</Heading2>
           <WeatherTable>
@@ -112,11 +112,11 @@ const WeatherGraph = () => {
               </tr>
             </tbody>
           </WeatherTable>
-        </div>
+        </Fragment>
       ) : (
         <Loading />
       )}
-    </React.Fragment>
+    </Fragment>
   );
 };
 

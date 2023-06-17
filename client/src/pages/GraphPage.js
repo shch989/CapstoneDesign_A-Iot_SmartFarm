@@ -1,15 +1,9 @@
 import React, { Fragment } from 'react'
 import styled from 'styled-components'
+// Components
+import MainBody from '../components/UI/MainBody'
 import DhtGraph from '../components/Graph/DhtGraph'
 import WeatherGraph from '../components/Graph/WeatherGraph'
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-`
 
 const Row = styled.div`
   display: flex;
@@ -37,23 +31,21 @@ const LargeGraphBox = styled.div`
 
 const GraphPage = () => {
   return (
-    <Fragment>
-      <Container>
-        <Row>
-          <SmallGraphBox>
-            <DhtGraph sensor={'temperature'} />
-          </SmallGraphBox>
-          <SmallGraphBox>
-            <DhtGraph sensor={'humidity'} />
-          </SmallGraphBox>
-        </Row>
-        <Row>
-          <LargeGraphBox>
-            <WeatherGraph />
-          </LargeGraphBox>
-        </Row>
-      </Container>
-    </Fragment>
+    <MainBody>
+      <Row>
+        <SmallGraphBox>
+          <DhtGraph sensor={'temperature'} />
+        </SmallGraphBox>
+        <SmallGraphBox>
+          <DhtGraph sensor={'humidity'} />
+        </SmallGraphBox>
+      </Row>
+      <Row>
+        <LargeGraphBox>
+          <WeatherGraph />
+        </LargeGraphBox>
+      </Row>
+    </MainBody>
   )
 }
 

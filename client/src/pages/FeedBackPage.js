@@ -1,25 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
+// Components
+import MainText from '../components/UI/MainText';
 
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-`;
 
-const Text = styled.h1`
-  font-size: 3rem;
-  color: #008080;
-  text-align: center;
-`;
 
 function FeedBackPage() {
-  return (
-    <Container>
-      <Text>Comming Soon...</Text>
-    </Container>
-  );
+  return <MainText>Comming Soon...</MainText>
 }
 
 export default FeedBackPage
