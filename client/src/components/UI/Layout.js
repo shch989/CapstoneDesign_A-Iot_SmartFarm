@@ -12,7 +12,7 @@ const Container = styled.main`
   min-height: 100vh;
   height: 100%;
   margin: 0 auto;
-  padding: 20px 5%;
+  padding: 0 5%;
   margin-top: 80px;
   width: 100%;
 `

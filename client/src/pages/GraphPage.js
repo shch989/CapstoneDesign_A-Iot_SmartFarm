@@ -9,7 +9,7 @@ const Row = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
-  margin-bottom: 25px;
+  margin: 20px;
 `
 
 const SmallGraphBox = styled.div`

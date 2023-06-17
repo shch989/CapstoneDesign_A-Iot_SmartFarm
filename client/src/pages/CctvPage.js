@@ -47,6 +47,7 @@ const LoadMoreButton = styled.button`
   background-color: #e0e0e0;
   border: none;
   margin-bottom: 10px;
+  border-radius: 5px;
   cursor: pointer;
 `;
 

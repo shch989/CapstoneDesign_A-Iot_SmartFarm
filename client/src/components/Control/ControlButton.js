@@ -11,6 +11,7 @@ const Button = styled.button`
   border: 1px solid teal;
   color: teal;
   margin-bottom: 20px;
+  border-radius: 5px;
 
   &:hover {
     border: 1px solid white;
