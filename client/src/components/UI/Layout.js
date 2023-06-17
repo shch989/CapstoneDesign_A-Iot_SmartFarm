@@ -3,6 +3,7 @@ import Navbar from '../common/Navbar'
 import Footer from '../common/Footer'
 import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
+import NotLogin from '../../pages/NotLogin'
 
 const Container = styled.main`
   max-width: 2000px;
@@ -14,12 +15,25 @@ const Container = styled.main`
 `
 
 const Layout = (props) => {
-  // 현재 경로를 가져오기 위해 useLocation hook을 사용.
   const { pathname } = useLocation()
+  const token = localStorage.getItem('token')
 
-  // 로그인 페이지와 회원가입 페이지에는 Navbar와 Footer를 제외.
   if (pathname === '/login' || pathname === '/register') {
     return <main>{props.children}</main>
+  }
+
+  if (
+    pathname === '/graph' ||
+    pathname === '/control' ||
+    pathname === '/cctv'
+  ) {
+    return (
+      <Fragment>
+        <Navbar />
+        {true ? <Container>{props.children}</Container> : <NotLogin />}
+        <Footer />
+      </Fragment>
+    )
   }
 
   return (
