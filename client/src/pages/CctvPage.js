@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 // Components
 import MainBody from '../components/UI/MainBody'
-// 테스트용
 import ImgShowDetail from '../components/Cctv/ImgShowDetail'
 
 const Title = styled.h1`
