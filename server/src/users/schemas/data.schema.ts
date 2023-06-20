@@ -23,6 +23,11 @@ export class Data extends Document {
     type: DhtSchema,
   })
   sensor: Dht;
+
+  @Prop({
+    required: true,
+  })
+  images: string[];
 }
 
 export const DataSchema = SchemaFactory.createForClass(Data);

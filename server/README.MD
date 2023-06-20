@@ -92,3 +92,14 @@ $ npm install --save @nestjs/passport passport passport-local
 ```
 $ npm install --save @nestjs/jwt
 ```
+
+### NestJS에서 Express.js 기능 사용
+```
+$ npm install --save @nestjs/platform-express
+```
+
+### multer를 사용하여 이미지 파일 업로드 처리
+```
+$ npm install --save-dev @types/multer
+$ npm install --save multer
+```

@@ -1,0 +1,25 @@
+import requests
+import asyncio
+import websockets
+
+async def connect_websocket():
+    uri = "ws://localhost:5000/cctv"
+    async with websockets.connect(uri) as websocket:
+        # 웹소켓 연결 성공 시 실행되는 로직
+        while True:
+            # HTTP 요청 보내기
+            user_id = "123"  # 사용자 ID
+            url = f"http://localhost:8080/cctv/upload/{user_id}"
+            response = requests.post(url)
+
+            # HTTP 요청 결과 처리
+            if response.status_code == 200:
+                images = response.json()
+
+                # WebSocket 클라이언트로 이미지 목록 전송
+                await websocket.send("imageList")
+                await websocket.send(images)
+            else:
+                print("HTTP request failed.")
+
+asyncio.get_event_loop().run_until_complete(connect_websocket())

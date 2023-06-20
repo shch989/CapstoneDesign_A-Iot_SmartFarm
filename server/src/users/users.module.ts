@@ -9,6 +9,7 @@ import { UsersRepository } from './users.repository';
 import { DhtModule } from 'src/dht/dht.module';
 import { WeatherModule } from 'src/weather/weather.module';
 import { Data, DataSchema } from './schemas/data.schema';
+import { CctvModule } from 'src/cctv/cctv.module';
 
 @Module({
   imports: [
@@ -16,7 +17,8 @@ import { Data, DataSchema } from './schemas/data.schema';
     HttpModule,
     forwardRef(() => AuthModule),
     DhtModule,
-    forwardRef(() => WeatherModule)
+    forwardRef(() => WeatherModule),
+    forwardRef(() => CctvModule),
   ],
   controllers: [UsersController],
   providers: [UsersService, UsersRepository],

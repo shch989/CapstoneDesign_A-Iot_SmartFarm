@@ -3,10 +3,10 @@ POST http://localhost:8080/users/register
 Content-Type: application/json
 
 {
-  "name": "test4",
-  "email": "test4@gmail.com",
-  "password": "test4test",
-  "address": "일본 도쿄"
+  "name": "test1",
+  "email": "test1@gmail.com",
+  "password": "test1test",
+  "address": "부산"
 }
 
 ### 로그인 POST

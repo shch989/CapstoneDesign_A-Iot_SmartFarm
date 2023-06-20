@@ -61,19 +61,21 @@ export class UsersService {
         email,
         password: hashed,
         address,
-        location,
-      }
-      const sensorData = await this.dhtService.createDhtData()
-      const weatherData = await this.weatherService.createWeatherData()
+        location
+      };
+      const sensorData = await this.dhtService.createDhtData();
+      const weatherData = await this.weatherService.createWeatherData();
       const createdUser = await this.dataModel.create({
         user: userData,
         weather: weatherData,
         sensor: sensorData,
+        images: [],
       });
-      
+
       return createdUser;
     } catch (err) {
       throw new HttpException(err.message, err.status || 500);
     }
   }
+
 }

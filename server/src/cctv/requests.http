@@ -1,0 +1,3 @@
+### 사용자의 모든 이미지 가져오기
+GET http://localhost:8080/cctv/load/6491ebc4643108debf2b63c8
+Content-Type: application/json
