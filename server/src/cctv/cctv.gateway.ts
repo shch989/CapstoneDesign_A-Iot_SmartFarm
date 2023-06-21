@@ -23,7 +23,7 @@ export class CctvGateway implements OnGatewayConnection, OnGatewayDisconnect {
     const images = await this.cctvService.showAllImages(userId);
     client.emit('imageList', images);
 
-    // processImage() 함수가 실행될 때마다 이미지 정보를 실시간으로 전송
+    // Flask 백엔드에서 processImage에 요청을 보낼 때마다 이미지 정보를 리액트에 실시간으로 전송
     client.on('processImage', async () => {
       const newImages = await this.cctvService.showAllImages(userId);
       client.emit('imageList', newImages);

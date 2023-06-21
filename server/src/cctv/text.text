@@ -1,25 +1,35 @@
+from flask import Flask, request
 import requests
-import asyncio
-import websockets
+from flask_socketio import SocketIO
 
-async def connect_websocket():
-    uri = "ws://localhost:5000/cctv"
-    async with websockets.connect(uri) as websocket:
-        # 웹소켓 연결 성공 시 실행되는 로직
-        while True:
-            # HTTP 요청 보내기
-            user_id = "123"  # 사용자 ID
-            url = f"http://localhost:8080/cctv/upload/{user_id}"
-            response = requests.post(url)
+app = Flask(__name__)
+socketio = SocketIO(app, cors_allowed_origins='*')
 
-            # HTTP 요청 결과 처리
-            if response.status_code == 200:
-                images = response.json()
+@app.route('/cctv/upload/<string:user_id>', methods=['POST'])
+def upload_image(user_id):
+    # 유저 아이디 추출
+    token = request.headers.get('Authorization')
+    decoded_token = None
+    if token:
+        decoded_token = jwt.decode(token, secret_key, algorithms=['HS256'])
+        user_id = decoded_token['sub']
+    else:
+        return 'Authorization token not provided', 401
 
-                # WebSocket 클라이언트로 이미지 목록 전송
-                await websocket.send("imageList")
-                await websocket.send(images)
-            else:
-                print("HTTP request failed.")
+    # 이미지 처리 로직
+    image_file = request.files['image']
+    # 이미지 처리 코드 작성
+    # ...
 
-asyncio.get_event_loop().run_until_complete(connect_websocket())
+    # NestJS 서버로 이미지 전송
+    nestjs_url = 'http://localhost:8080/cctv/upload/' + user_id
+    files = {'image': image_file}
+    response = requests.post(nestjs_url, files=files)
+
+    # NestJS 서버로 processImage 이벤트 전송
+    sio.emit('processImage', room=user_id)
+
+    return 'Image uploaded and processed successfully'
+
+if __name__ == '__main__':
+    socketio.run(app)
