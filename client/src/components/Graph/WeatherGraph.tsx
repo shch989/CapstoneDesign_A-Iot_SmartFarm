@@ -1,7 +1,25 @@
-import React, { useState, useEffect, Fragment } from "react";
-import styled from "styled-components";
-import io from "socket.io-client";
-import Loading from "../UI/Loading";
+import React, { useState, useEffect, Fragment } from 'react'
+import styled from 'styled-components'
+import io, { Socket } from 'socket.io-client'
+import Loading from '../UI/Loading'
+
+interface WeatherData {
+  user: {
+    address: string
+  }
+  weather: {
+    temperature: number
+    weather_descriptions: string[]
+    wind_speed: number
+    wind_degree: number
+    wind_dir: string
+    pressure: number
+    precip: number
+    humidity: number
+    cloudcover: number
+    feelslike: number
+  }
+}
 
 const WeatherTable = styled.table`
   width: 100%;
@@ -24,41 +42,41 @@ const WeatherTable = styled.table`
     text-align: center;
     background-color: #fff;
   }
-`;
+`
 
 const Heading1 = styled.h1`
   text-align: center;
   margin: 0;
-`;
+`
 
 const Heading2 = styled.h2`
   text-align: right;
-`;
+`
 
-const WeatherGraph = () => {
-  const [weatherData, setWeatherData] = useState(null);
-  const [socket, setSocket] = useState(null);
+const WeatherGraph: React.FC = () => {
+  const [weatherData, setWeatherData] = useState<WeatherData | null>(null)
+  const [socket, setSocket] = useState<Socket | null>(null)
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token')
     if (token) {
-      const newSocket = io("http://localhost:5000/weather", {
+      const newSocket = io('http://localhost:5000/weather', {
         auth: { token },
-      });
-      setSocket(newSocket);
+      })
+      setSocket(newSocket)
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
     if (socket) {
-      socket.on("weatherData", (data) => {
-        setWeatherData(data);
-      });
+      socket.on('weatherData', (data: WeatherData) => {
+        setWeatherData(data)
+      })
       return () => {
-        socket.disconnect();
-      };
+        socket.disconnect()
+      }
     }
-  }, [socket]);
+  }, [socket])
 
   return (
     <Fragment>
@@ -117,7 +135,7 @@ const WeatherGraph = () => {
         <Loading />
       )}
     </Fragment>
-  );
-};
+  )
+}
 
-export default WeatherGraph;
+export default WeatherGraph

@@ -68,8 +68,15 @@ const StyledHome = styled.div`
   }
 `
 
-const HomePage = () => {
-  const posts = [
+interface Post {
+  id: number
+  title: string
+  desc: string
+  img: string
+}
+
+const HomePage: React.FC = () => {
+  const posts: Post[] = [
     {
       id: 1,
       title: 'Project Title No.1',

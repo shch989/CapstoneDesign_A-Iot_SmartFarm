@@ -16,7 +16,7 @@ const Container = styled.div`
   background-color: #e0ffff;
   border-radius: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add box shadow */
-`;
+`
 
 const ControlTitle = styled.h2`
   font-size: 24px;
@@ -34,11 +34,11 @@ const ControlButtonSquare = styled(ControlButton)`
   width: 150px;
   height: 150px;
   margin: 20px;
-`;
+`
 
-const ControlPage = () => {
-  const [leftButtonPressed, setLeftButtonPressed] = useState(false)
-  const [rightButtonPressed, setRightButtonPressed] = useState(false)
+const ControlPage: React.FC = () => {
+  const [leftButtonPressed, setLeftButtonPressed] = useState<boolean>(false)
+  const [rightButtonPressed, setRightButtonPressed] = useState<boolean>(false)
 
   const handleForwardButton = async () => {
     setRightButtonPressed(true)

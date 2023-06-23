@@ -1,7 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import React from 'react'
-import styled from 'styled-components'
 
 const Container = styled.div`
   display: flex;
@@ -18,10 +16,10 @@ const Text = styled.h1`
   text-align: center;
 `
 
-const FeedBackPage = () => {
+const FeedBackPage: React.FC = () => {
   return (
     <Container>
-      <Text>Comming Soon...</Text>
+      <Text>Coming Soon...</Text>
     </Container>
   )
 }

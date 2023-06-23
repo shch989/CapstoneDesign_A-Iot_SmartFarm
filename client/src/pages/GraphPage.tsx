@@ -29,7 +29,7 @@ const LargeGraphBox = styled.div`
   padding: 30px;
 `
 
-const GraphPage = () => {
+const GraphPage: React.FC = () => {
   return (
     <MainBody>
       <Row>

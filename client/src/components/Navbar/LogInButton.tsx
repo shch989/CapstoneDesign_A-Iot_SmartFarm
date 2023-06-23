@@ -1,6 +1,6 @@
-import React from 'react'
-import styled from "styled-components";
-import { FiLogIn } from "react-icons/fi";
+import React from 'react';
+import styled from 'styled-components';
+import { FiLogIn } from 'react-icons/fi';
 
 const Login = styled.a`
   margin-left: 20px;
@@ -18,6 +18,7 @@ const Login = styled.a`
   &:hover {
     color: #000;
   }
+
   svg {
     margin-left: 5px;
     font-size: 18px;
@@ -25,13 +26,13 @@ const Login = styled.a`
   }
 `;
 
-const LogInButton = () => {
+const LogInButton: React.FC = () => {
   return (
     <Login href="/login">
       Login
       <FiLogIn />
     </Login>
-  )
-}
+  );
+};
 
-export default LogInButton
+export default LogInButton;

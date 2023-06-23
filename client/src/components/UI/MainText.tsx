@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import styled from 'styled-components'
 // Components
 import MainBody from './MainBody'
@@ -10,10 +10,14 @@ const Text = styled.h1`
   text-align: center;
 `
 
-const MainText = (props) => {
+interface MainTextProps {
+  children: ReactNode;
+}
+
+const MainText: React.FC<MainTextProps> = ({ children }) => {
   return (
     <MainBody>
-      <Text>{props.children}</Text>
+      <Text>{children}</Text>
     </MainBody>
   )
 }

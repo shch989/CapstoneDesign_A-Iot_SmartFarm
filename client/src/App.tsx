@@ -13,7 +13,7 @@ import FeedBackPage from './pages/FeedBackPage'
 // Components
 import Layout from './components/UI/Layout'
 
-const App = () => {
+const App: React.FC = () => {
   return (
     <div className="App">
       <Router>

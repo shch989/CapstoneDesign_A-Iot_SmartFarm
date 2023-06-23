@@ -54,7 +54,17 @@ const Link = styled.a`
   }
 `
 
-const teamMembers = [
+interface SectionContent {
+  title: string;
+  content: string | JSX.Element;
+}
+
+interface TeamMember {
+  sectionTitle: string;
+  sectionContent: SectionContent[];
+}
+
+const teamMembers: TeamMember[] = [
   {
     sectionTitle: '프로젝트 소개',
     sectionContent: [
@@ -130,7 +140,7 @@ const teamMembers = [
   },
 ]
 
-const Footer = () => {
+const Footer: React.FC = () => {
   return (
     <Container>
       <MainFooter>
@@ -149,4 +159,5 @@ const Footer = () => {
     </Container>
   )
 }
+
 export default Footer

@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import { FiLogOut } from "react-icons/fi";
+import React from 'react';
+import styled from 'styled-components';
+import { FiLogOut } from 'react-icons/fi';
 
 const Logout = styled.button`
   margin-left: 20px;
@@ -18,6 +18,7 @@ const Logout = styled.button`
   &:hover {
     color: #000;
   }
+
   svg {
     margin-left: 5px;
     font-size: 18px;
@@ -25,9 +26,8 @@ const Logout = styled.button`
   }
 `;
 
-const LogOutButton = () => {
+const LogOutButton: React.FC = () => {
   const handleLogout = () => {
-    // 세션에서 토큰을 제거하고 현재 페이지로 이동
     localStorage.removeItem('token');
     window.location.href = window.location.pathname;
   };

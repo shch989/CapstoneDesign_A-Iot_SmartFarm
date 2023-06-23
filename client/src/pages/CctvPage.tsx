@@ -41,11 +41,11 @@ const LoadMoreButton = styled.button`
   cursor: pointer;
 `
 
-const CctvPage = () => {
-  const [showImage, setShowImage] = useState(false)
-  const [showDetailImage, setShowDetailImage] = useState('')
-  const [selectedImage, setSelectedImage] = useState(false)
-  const [images, setImages] = useState([]) // 이미지 URL 배열
+const CctvPage: React.FC = () => {
+  const [showImage, setShowImage] = useState<boolean>(false)
+  const [showDetailImage, setShowDetailImage] = useState<string>('')
+  const [selectedImage, setSelectedImage] = useState<boolean>(false)
+  const [images, setImages] = useState<string[]>([]) // 이미지 URL 배열
 
   useEffect(() => {
     const token = localStorage.getItem('token')
@@ -53,7 +53,7 @@ const CctvPage = () => {
       const socket = io('http://localhost:5000/cctv', {
         auth: { token },
       })
-      socket.on('imageList', (data) => {
+      socket.on('imageList', (data: string[]) => {
         setImages(data) // 이미지 URL 배열 업데이트
       })
       return () => {
@@ -66,13 +66,13 @@ const CctvPage = () => {
     setShowImage(!showImage)
   }
 
-  const handleImageClick = (imageUrl) => {
+  const handleImageClick = (imageUrl: string) => {
     setShowDetailImage(imageUrl)
     setSelectedImage(true)
   }
 
   const handleCloseImage = () => {
-    setShowDetailImage(false)
+    setShowDetailImage('')
     setSelectedImage(false)
   }
 

@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const LoadingContainer = styled.div`
   display: flex;
@@ -14,7 +14,7 @@ const LoadingText = styled.div`
   color: #555;
 `;
 
-const Loading = () => {
+const Loading: React.FC = () => {
   return (
     <LoadingContainer>
       <LoadingText>Loading...</LoadingText>

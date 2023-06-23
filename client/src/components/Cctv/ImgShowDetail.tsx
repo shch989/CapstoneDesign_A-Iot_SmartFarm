@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 import styled from 'styled-components'
 
@@ -19,8 +19,18 @@ const EnlargedImage = styled.img`
   width: 60%;
 `
 
-const ImgShowDetail = (props) => {
-  const modalRoot = document.getElementById('modal-root')
+interface ImgShowDetailProps {
+  imageUrl: string;
+  closeImage: () => void;
+}
+
+const ImgShowDetail: React.FC<ImgShowDetailProps> = (props) => {
+  const modalRoot = document.getElementById('modal-root') as
+    | Element
+    | DocumentFragment
+    | null
+
+  if (!modalRoot) return null
 
   return ReactDOM.createPortal(
     <EnlargedOverlay onClick={props.closeImage}>
