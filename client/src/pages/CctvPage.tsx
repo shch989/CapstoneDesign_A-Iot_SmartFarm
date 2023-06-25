@@ -32,6 +32,19 @@ const Image = styled.img`
   margin: 10px;
 `
 
+const NoImageBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  width: 100%;
+  margin-top: 20px;
+  border: 1px dashed #e0e0e0;
+  border-radius: 5px;
+  font-size: 18px;
+  color: #888;
+`
+
 const LoadMoreButton = styled.button`
   padding: 10px 20px;
   background-color: #e0e0e0;
@@ -85,14 +98,18 @@ const CctvPage: React.FC = () => {
       </LoadMoreButton>
       {showImage && (
         <ImageContainer>
-          {images.map((imageUrl, index) => (
-            <Image
-              key={index}
-              src={imageUrl}
-              alt={`Image ${index}`}
-              onClick={() => handleImageClick(imageUrl)}
-            />
-          ))}
+          {images.length > 0 ? (
+            images.map((imageUrl, index) => (
+              <Image
+                key={index}
+                src={imageUrl}
+                alt={`Image ${index}`}
+                onClick={() => handleImageClick(imageUrl)}
+              />
+            ))
+          ) : (
+            <NoImageBox>No images available</NoImageBox>
+          )}
         </ImageContainer>
       )}
       {selectedImage && (
