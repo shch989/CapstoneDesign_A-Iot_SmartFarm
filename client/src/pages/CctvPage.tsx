@@ -28,8 +28,9 @@ const Cctv = styled.img`
 `
 
 const Image = styled.img`
-  height: 150px;
-  margin: 10px;
+  min-height: 150px;
+  min-width: 200px;
+  margin: 20px 10px;
 `
 
 const NoImageBox = styled.div`
