@@ -36,9 +36,10 @@ const NoImageBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 200px;
-  width: 100%;
-  margin-top: 20px;
+  min-height: 150px;
+  min-width: 200px;
+  padding: 10px;
+  margin: 20px 10px;
   border: 1px dashed #e0e0e0;
   border-radius: 5px;
   font-size: 18px;
@@ -108,7 +109,9 @@ const CctvPage: React.FC = () => {
               />
             ))
           ) : (
-            <NoImageBox>No images available</NoImageBox>
+            Array.from({ length: 10 }).map((_, index) => (
+              <NoImageBox key={index}>No images available</NoImageBox>
+            ))
           )}
         </ImageContainer>
       )}
